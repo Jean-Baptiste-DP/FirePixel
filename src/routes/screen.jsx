@@ -20,9 +20,14 @@ export default function Screen() {
       </div>
 
       <div className="hidden sm:block">
-        <h1 className="text-3xl text-red-700">
-          Hello from Screen !
-        </h1>
+        <div className="w-full min-h-screen flex">
+          <div className="w-1/5 bg-primary flex flex-col items-center justify-center">
+            coucou
+          </div>
+          <div className="w-4/5 bg-secondary">
+            coucou
+          </div>
+        </div>
       </div>
     </>
   );

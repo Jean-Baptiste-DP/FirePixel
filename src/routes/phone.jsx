@@ -1,4 +1,5 @@
 import { ExclamationTriangleIcon } from '@heroicons/react/20/solid'
+import Joystick from '../components/phone/joystick'
 
 export default function Phone() {
     return (
@@ -20,9 +21,21 @@ export default function Phone() {
         </div>
 
         <div className="block sm:hidden">
-          <h1 className="text-3xl text-blue-700">
-            Hello from Phone !
-          </h1>
+          <div className="bg-gray-300 h-screen">
+            <div className="h-1/2 grid grid-cols-1 place-items-center">
+              <h1 className="text-3xl font-extrabold">
+                Canvas
+              </h1>
+            </div>
+            <div className="bg-red-400 rounded-lg h-1/6">
+              <h1 className="text-3xl">
+                Pointer Blue
+              </h1>
+            </div>
+            <div className="bg-red-400 rounded-lg h-2/6">
+               <Joystick></Joystick> 
+            </div>
+          </div>
         </div>
       </>
     );

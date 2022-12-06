@@ -1,7 +1,11 @@
 import { ExclamationTriangleIcon } from '@heroicons/react/20/solid'
-import Joystick from '../components/phone/joystick'
+import HomeJoystick from '../components/phone/homeJoystick';
+
+
 
 export default function Phone() {
+
+
     return (
       <>
         <div className="hidden sm:block rounded-md bg-yellow-100 p-4 m-4">
@@ -33,7 +37,7 @@ export default function Phone() {
               </h1>
             </div>
             <div className="bg-red-400 rounded-lg h-2/6">
-               <Joystick></Joystick> 
+              <HomeJoystick />
             </div>
           </div>
         </div>

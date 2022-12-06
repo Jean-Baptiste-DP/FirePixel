@@ -3,6 +3,7 @@ import HomeJoystick from '../components/phone/homeJoystick';
 
 
 
+
 export default function Phone() {
 
 
@@ -36,8 +37,8 @@ export default function Phone() {
                 Pointer Blue
               </h1>
             </div>
-            <div className="bg-red-400 rounded-lg h-2/6">
-              <HomeJoystick />
+            <div className=" grid grid-cols-6 grid-rows- bg-red-400 rounded-lg h-2/6 place-items-center">
+              <HomeJoystick/>
             </div>
           </div>
         </div>

@@ -18,7 +18,7 @@ export default function HomeJoystick() {
 
   return (
     <>
-      <Joystick size={100} baseColor="red" stickColor="blue" move={handleMove} stop={handleStop}></Joystick>
+      <Joystick size={100} baseColor="white" stickColor="black" move={handleMove} stop={handleStop}></Joystick>
     </>
   )
 }

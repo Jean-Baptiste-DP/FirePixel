@@ -1,20 +1,21 @@
 import { ExclamationTriangleIcon } from '@heroicons/react/20/solid'
 import HomeJoystick from '../components/phone/homeJoystick';
 import Button from '../components/phone/button';
-import React,{useState,useEffect} from 'react';
+import React,{useState} from 'react';
 
 
 
 
 export default function Phone() {
 
-  const [helpState, setHelpState] = useState(['-z-10 opacity-0']);
+  const [helpState, setHelpState] = useState({Display : '-z-10 opacity-0', State : 'off' });
   
   function helpOnCLick() {
-    if (helpState != '-z-10 opacity-0') {
-    setHelpState('-z-10 opacity-0');}
+    if (helpState.Display != '-z-10 opacity-0') {
+    setHelpState(prevhelpState => ({...prevhelpState,Display : '-z-10 opacity-0', State : 'off'}));
+  }
     else {
-      setHelpState('z-10');
+      setHelpState(prevhelpState => ({...prevhelpState , Display:'z-10',State : 'on'}));
     }
   }
 
@@ -44,7 +45,7 @@ export default function Phone() {
         </div>
 
         <div className="block sm:hidden">
-          <div className={`grid grid-cols-1 place-items-center absolute h-full w-full ${helpState} transition duration-300 `}>
+          <div className={`grid grid-cols-1 place-items-center absolute h-full w-full ${helpState.Display} transition duration-300 `}>
             <div className="h-2/3 w-2/3  bg-dark rounded-lg p-4 ">
               <p className="text-white text-xl"> Regles du jeux :
               Yo tell me what you want what you really really really want</p>
@@ -68,7 +69,7 @@ export default function Phone() {
             <div className="my-2 pt-9 grid grid-rows-2 bg-primary rounded-lg h-2/6 place-items-center gap-10">
               <HomeJoystick/>
               <div className='grid grid-cols-3 place-items-center gap-5 relative z-10'>
-                <Button text='Help' onClick={helpOnCLick}/>
+                <Button text='Help' onClick={helpOnCLick} state={helpState.State}/>
                 <Button text='Color' onClick={() => console.log("COLOR") }/>
                 <Button text='Apply' onClick={() => console.log("Apply") }/>
               </div>

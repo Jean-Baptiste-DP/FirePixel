@@ -2,14 +2,12 @@ import { ExclamationTriangleIcon } from '@heroicons/react/20/solid'
 import HomeJoystick from '../components/phone/homeJoystick';
 import Button from '../components/phone/button';
 import React,{useState} from 'react';
-
-
+import useWebSocket from 'react-use-websocket';
 
 
 export default function Phone() {
 
   const [helpState, setHelpState] = useState({Display : '-z-10 opacity-0', State : 'off' });
-  
   function helpOnCLick() {
     if (helpState.Display != '-z-10 opacity-0') {
     setHelpState(prevhelpState => ({...prevhelpState,Display : '-z-10 opacity-0', State : 'off'}));
@@ -18,13 +16,31 @@ export default function Phone() {
       setHelpState(prevhelpState => ({...prevhelpState , Display:'z-10',State : 'on'}));
     }
   }
-
-  
   const player = {
     Name : 'Blue Player',
     Color : 'bg-sky-400'
   }
 
+
+  // Websockets 
+  // let socket = new WebSocket('ws://localhost:10406');
+  // socket.send(JSON.stringify({
+  //     type: "phone"
+  // }));
+
+  // function sendJoystick(x,y){
+  //   socket.send(JSON.stringify({
+  //       x:x,
+  //       y:y
+  //   }))
+  // }
+
+  const socketUrl = "ws://localhost:10406"
+
+  const { sendJsonMessage } = useWebSocket(socketUrl);
+  sendJsonMessage({
+        type: "phone"
+    })
 
     return (
       <>
@@ -67,7 +83,7 @@ export default function Phone() {
               </div>
             </div>
             <div className="my-2 pt-9 grid grid-rows-2 bg-primary rounded-lg h-2/6 place-items-center gap-10">
-              <HomeJoystick/>
+              <HomeJoystick websocket={sendJsonMessage}/>
               <div className='grid grid-cols-3 place-items-center gap-5 relative z-10'>
                 <Button text='Help' onClick={helpOnCLick} state={helpState.State}/>
                 <Button text='Color' onClick={() => console.log("COLOR") }/>

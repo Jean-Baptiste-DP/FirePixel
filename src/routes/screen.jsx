@@ -1,12 +1,38 @@
 import { ExclamationTriangleIcon } from '@heroicons/react/20/solid'
 import Case from "../components/screen/case"
+import useWebSocket from 'react-use-websocket';
+import { useState } from 'react';
 
 export default function Screen() {
+
+    const [caseLighted,changeCase]=useState(44)
+
     let cases=[]
     for(let i=0;i<100;i++){
-        cases.push(<Case key={i}/>)
+        cases.push(<Case key={i} enlightCase={caseLighted} case_number={i}/>)
     }
 
+    //Websockets
+
+    // let socket = new WebSocket('ws://localhost:10406');
+    // socket.send(JSON.stringify({
+    //     type: "screen"
+    // }));
+    // socket.onmessage = function(str) {
+    //     console.log("Someone sent: ", str);
+    // };
+
+    function onReceivedSocket(message){
+        changeCase(10*(4-lastJsonMessage.y)+4+lastJsonMessage.x)
+        console.log(10*(4-lastJsonMessage.y)+4+lastJsonMessage.x)
+    }
+
+    const socketUrl = "ws://localhost:10406"
+
+    const { sendJsonMessage, lastJsonMessage } = useWebSocket(socketUrl,{onMessage:onReceivedSocket});
+    sendJsonMessage({
+        type: "screen"
+    })
 
   return (
     <>

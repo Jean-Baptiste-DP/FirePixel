@@ -1,6 +1,13 @@
 import { ExclamationTriangleIcon } from '@heroicons/react/20/solid'
+import Case from "../components/screen/case"
 
 export default function Screen() {
+    let cases=[]
+    for(let i=0;i<100;i++){
+        cases.push(<Case key={i}/>)
+    }
+
+
   return (
     <>
       <div className="block sm:hidden rounded-md bg-yellow-100 p-4 m-4">
@@ -25,7 +32,10 @@ export default function Screen() {
             coucou
           </div>
           <div className="w-4/5 bg-secondary">
-            coucou
+            <div className='grid grid-cols-10 w-80'>
+
+              {cases}
+            </div>
           </div>
         </div>
       </div>

@@ -16,15 +16,11 @@ for (let i=0;i<16;i++){
 };
 
   const [helpState, setHelpState] = useState({Display : '-z-10 opacity-0', State : 'off' });
-<<<<<<< HEAD
-  function helpOnCLick() {
-=======
   const [paletteState,setPaletteState] = useState({Display : '-z-10 opacity-0', State : 'off', Color : 'black' });
   const [pixel,setPixel] = useState({position : [0,0], Color : 'black'});
   
   
   function helpOnClick() {
->>>>>>> 2597507101169ad55adeaba64c01c85d63d298ec
     if (helpState.Display != '-z-10 opacity-0') {
     setHelpState(prevhelpState => ({...prevhelpState,Display : '-z-10 opacity-0', State : 'off'}));
   }
@@ -32,8 +28,6 @@ for (let i=0;i<16;i++){
       setHelpState(prevhelpState => ({...prevhelpState , Display:'z-10',State : 'on'}));
     }
   }
-<<<<<<< HEAD
-=======
 
   function colorOnClick() {
     if (paletteState.Display != '-z-10 opacity-0') {
@@ -56,7 +50,6 @@ for (let i=0;i<16;i++){
 
 
   
->>>>>>> 2597507101169ad55adeaba64c01c85d63d298ec
   const player = {
     Name : 'Blue Player',
     Color : 'bg-sky-400',
@@ -145,18 +138,8 @@ for (let i=0;i<16;i++){
               <div  className={`${player.Color} mx-2 rounded-lg w-8 h-8 border-black border-2`}>
               </div>
             </div>
-<<<<<<< HEAD
-            <div className="my-2 pt-9 grid grid-rows-2 bg-primary rounded-lg h-2/6 place-items-center gap-10">
-              <HomeJoystick websocket={sendJsonMessage}/>
-              <div className='grid grid-cols-3 place-items-center gap-5 relative z-10'>
-                <Button text='Help' onClick={helpOnCLick} state={helpState.State}/>
-                <Button text='Color' onClick={() => console.log("COLOR") }/>
-                <Button text='Apply' onClick={() => console.log("Apply") }/>
-              </div>
-=======
             <div className="my-1 grid grid-rows-1 bg-primary rounded-lg h-1/3 place-items-center">
-            <HomeJoystick/>
->>>>>>> 2597507101169ad55adeaba64c01c85d63d298ec
+            <HomeJoystick websocket={sendJsonMessage}/>
             </div>
               <div className='h-[8%] p-2 grid grid-cols-3 place-items-center gap-5 relative z-10 bg-primary rounded-lg'>
                 <Button text='Help' onClick={helpOnClick} state={helpState.State}/>

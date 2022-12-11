@@ -14,13 +14,12 @@ export default function HomeJoystick({websocket}) {
     var {x,y} = event;
     x = parseInt(x*5);
     y = parseInt(y*5);
-    // websocket(
-    //   {
-    //     x:x,
-    //     y:y
-    //   }
-    //   )
-    console.log(x,"/",y)
+    websocket(
+      {
+        x:x,
+        y:y
+      }
+      )
   }
 
   return (

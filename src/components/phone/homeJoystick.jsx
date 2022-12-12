@@ -24,7 +24,7 @@ export default function HomeJoystick({websocket}) {
 
   return (
     <>
-      <Joystick size={100} baseColor="white" stickColor="black" move={handleMove} stop={handleStop}></Joystick>
+      <Joystick baseImage="joystick_smaller.png" size={200} stickSize={50} baseColor="white" stickColor="black" move={handleMove} stop={handleStop}></Joystick>
     </>
   )
 }

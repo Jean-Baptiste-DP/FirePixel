@@ -17,9 +17,26 @@ for (let i=0;i<16;i++){
 
   const [helpState, setHelpState] = useState({Display : '-z-10 opacity-0', State : 'off' });
   const [paletteState,setPaletteState] = useState({Display : '-z-10 opacity-0', State : 'off', Color : 'black' });
-  const [pixel,setPixel] = useState({position : [0,0], Color : 'black'});
+  const [pixel,setPixel] = useState(0);
+
+  const colordict = {0:'bg-emerald-500', 1 : 'bg-green-400', 3 : 'bg-yellow-300', 4 : 'bg-amber-500', 2 : 'bg-lime-200', 5 : 'bg-red-500', 6 : 'bg-rose-400', 7 : 'bg-cyan-300', 8 : 'bg-sky-500', 10 : 'bg-purple-500', 9 : 'bg-indigo-300', 11 : 'bg-amber-800', 12 : 'bg-black', 13 : 'bg-slate-400', 14 : 'bg-slate-200', 15 : 'bg-white'};
+  const namedict = {0:'Emerald', 1 : 'Green', 3 : 'Yellow', 4 : 'Amber', 2 : 'Lime', 5 : 'Red', 6 : 'Rose', 7 : 'Cyan', 8 : 'Sky', 10 : 'Purple', 9 : 'Indigo', 11 : 'bg-amber-800', 12 : 'bg-black', 13 : 'bg-slate-400', 14 : 'bg-slate-200', 15 : 'bg-white'};
   
+  let randomId = parseInt(Math.random()*10)
   
+  const player = {
+    id : randomId,
+    Name : namedict[randomId],
+    Color : colordict[randomId]
+  }
+  
+ function applyOnClick(websocket, pixel){
+      console.log(pixel);
+     /* websocket(
+          { color : pixel }
+      )*/
+  };
+
   function helpOnClick() {
     if (helpState.Display != '-z-10 opacity-0') {
     setHelpState(prevhelpState => ({...prevhelpState,Display : '-z-10 opacity-0', State : 'off'}));
@@ -38,22 +55,13 @@ for (let i=0;i<16;i++){
     }
   }
 
-  function applyOnClick() {
-    console.log(pixel);
-  }
 
   function godetOnClick(couleur) {
 
-    setPixel(prevPixel => ({...prevPixel,Color : couleur}));
+    setPixel(couleur);
   
   }
 
-
-  
-  const player = {
-    Name : 'Blue Player',
-    Color : 'bg-sky-400',
-  }
 
   const regles = ' Regles du jeux : Yo tell me what you want what you really really really want';
 
@@ -108,7 +116,7 @@ for (let i=0;i<16;i++){
 
           <div className={`grid place-items-center  absolute h-full w-full ${paletteState.Display} transition duration-300 `}>
             <div className='m-12'/>
-            <div className="grid grid-rows-3 h-1/2 w-[90%] place-items-center  bg-dark rounded-lg p-4 gap-2 -translate-y-1 drop-shadow-lg">
+            <div className="grid grid-rows-4 h-1/2 w-[90%] place-items-center  bg-dark rounded-lg p-4 gap-2 -translate-y-1 drop-shadow-lg">
               <div className='grid grid-cols-5 gap-4'>
                 {rows.slice(0,5)}
               </div>
@@ -117,6 +125,10 @@ for (let i=0;i<16;i++){
               </div>
               <div className='grid grid-cols-5 gap-4'>
               {rows.slice(11,16)}
+              </div>
+              <div className='grid grid-cols-4 place-items-center gap-2 '>
+              <div className='text-xl font-extrabold text-white'>Color Selected:</div>
+                <Godet color={pixel}/> 
               </div>
             </div>
           </div>
@@ -131,7 +143,7 @@ for (let i=0;i<16;i++){
             </div>
             <div className="my-1 py-2 flex bg-primary rounded-lg items-center justify-center">
               <h1 className="text-xl text-white font-extrabold">
-                {player.Name}
+                {player.Name} Player
               </h1>
               {/*On ne peut pas faire bg-${player}-400 car tailwind n'autorise pas ce genre de syntax,
                il faudra donc créer un dict qui possède le nom de la couleur du joueur et son équivalent tailwind ou un hex*/}
@@ -143,8 +155,8 @@ for (let i=0;i<16;i++){
             </div>
               <div className='h-[8%] p-2 grid grid-cols-3 place-items-center gap-5 relative z-10 bg-primary rounded-lg'>
                 <Button text='Help' onClick={helpOnClick} state={helpState.State}/>
-                <Button text='Color' onClick={colorOnClick} state = {paletteState.State} />
-                <Button text='Apply' onClick={applyOnClick}/>
+                <Button text='Color' onClick={colorOnClick} state = {paletteState.State}/>
+                <Button text='Apply' onClick={() => applyOnClick(sendJsonMessage,pixel)}/>
               </div>
             
           </div>

@@ -4,7 +4,7 @@ import { Joystick } from 'react-joystick-component';
 
 function handleStop(event) {
 
-  console.log(event)
+  //console.log(event)
 }
 
 
@@ -16,15 +16,28 @@ export default function HomeJoystick({websocket}) {
     y = parseInt(y*5);
     websocket(
       {
-        x:x,
-        y:y
-      }
-      )
+        req : 'move',
+        x : x,
+        y : y
+      });
+      console.log("Msg sent to back : " , JSON.stringify({req : 'move',
+      x : x,
+      y : y}))
+      
   }
 
   return (
     <>
-      <Joystick baseImage="joystick_smaller.png" size={200} stickSize={50} baseColor="white" stickColor="black" move={handleMove} stop={handleStop}></Joystick>
+      <Joystick baseImage="joystick_smaller.png" 
+                throttle={1000} 
+                size={200} 
+                stickSize={50} 
+                baseColor="white" 
+                stickColor="black" 
+                move={handleMove} 
+                stop={handleStop}>
+
+      </Joystick>
     </>
   )
 }

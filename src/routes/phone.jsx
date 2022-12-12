@@ -2,13 +2,18 @@ import { ExclamationTriangleIcon } from '@heroicons/react/20/solid'
 import HomeJoystick from '../components/phone/homeJoystick';
 import Button from '../components/phone/button';
 import Godet from '../components/phone/godet'
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import useWebSocket from 'react-use-websocket';
 
 let randomId = parseInt(Math.random()*10)
 
+const colordict = {0:'bg-emerald-500', 1 : 'bg-green-400', 3 : 'bg-yellow-300', 4 : 'bg-amber-500', 2 : 'bg-lime-200', 5 : 'bg-red-500', 6 : 'bg-rose-400', 7 : 'bg-cyan-300', 8 : 'bg-sky-500', 10 : 'bg-purple-500', 9 : 'bg-indigo-300', 11 : 'bg-amber-800', 12 : 'bg-black', 13 : 'bg-slate-400', 14 : 'bg-slate-200', 15 : 'bg-white'};
+const namedict = {0:'Emerald', 1 : 'Green', 3 : 'Yellow', 4 : 'Amber', 2 : 'Lime', 5 : 'Red', 6 : 'Rose', 7 : 'Cyan', 8 : 'Sky', 10 : 'Purple', 9 : 'Indigo', 11 : 'bg-amber-800', 12 : 'bg-black', 13 : 'bg-slate-400', 14 : 'bg-slate-200', 15 : 'bg-white'};
+const socketUrl = "ws://localhost:10406"
 
 export default function Phone() {
+
+
 
   const rows = [];
 for (let i=0;i<16;i++){
@@ -18,25 +23,40 @@ for (let i=0;i<16;i++){
   const [helpState, setHelpState] = useState({Display : '-z-10 opacity-0', State : 'off' });
   const [paletteState,setPaletteState] = useState({Display : '-z-10 opacity-0', State : 'off', Color : 'black' });
   const [pixel,setPixel] = useState(0);
+  const [player,setPlayer]=useState({id : randomId, Name : namedict[randomId], Color : colordict[randomId]});
+  
+  
+  function onReceivedSocket(message){
+    let playerModif = JSON.parse(message.data)
+    setPlayer(prevState => ({...prevState,id : playerModif.id, Color : colordict[playerModif.id],Name : namedict[playerModif.id] }))
+    console.log('Message sent from Back to player',playerModif)
+}
 
-  const colordict = {0:'bg-emerald-500', 1 : 'bg-green-400', 3 : 'bg-yellow-300', 4 : 'bg-amber-500', 2 : 'bg-lime-200', 5 : 'bg-red-500', 6 : 'bg-rose-400', 7 : 'bg-cyan-300', 8 : 'bg-sky-500', 10 : 'bg-purple-500', 9 : 'bg-indigo-300', 11 : 'bg-amber-800', 12 : 'bg-black', 13 : 'bg-slate-400', 14 : 'bg-slate-200', 15 : 'bg-white'};
-  const namedict = {0:'Emerald', 1 : 'Green', 3 : 'Yellow', 4 : 'Amber', 2 : 'Lime', 5 : 'Red', 6 : 'Rose', 7 : 'Cyan', 8 : 'Sky', 10 : 'Purple', 9 : 'Indigo', 11 : 'bg-amber-800', 12 : 'bg-black', 13 : 'bg-slate-400', 14 : 'bg-slate-200', 15 : 'bg-white'};
+const { sendJsonMessage, lastJsonMessage, lastMessage } = useWebSocket(socketUrl,{onMessage:onReceivedSocket});
+
+
+    useEffect(() => {
+
+      sendJsonMessage({
+        req : "connection",
+        type: "phone"
+      })
+      console.log("Connection message sent to back");
   
+    },[]);
   
-  console.log('refresh')
-  
-  const player = {
-    id : randomId,
-    Name : namedict[randomId],
-    Color : colordict[randomId]
-  }
+
   
  function applyOnClick(websocket, pixel){
       console.log(pixel);
-     /* websocket(
-          { color : pixel }
-      )*/
-  };
+        websocket(
+          { 
+            req : 'chgColor',
+            color : pixel,
+
+           }
+      )
+      };
 
   function helpOnClick() {
     if (helpState.Display != '-z-10 opacity-0') {
@@ -80,12 +100,13 @@ for (let i=0;i<16;i++){
   //   }))
   // }
 
-  const socketUrl = "ws://localhost:10406"
 
-  const { sendJsonMessage } = useWebSocket(socketUrl);
+
+  /*const { sendJsonMessage } = useWebSocket(socketUrl);
   sendJsonMessage({
+        req : "connection",
         type: "phone"
-    })
+    })*/
 
     return (
       <>

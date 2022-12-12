@@ -27,14 +27,17 @@ export default function Screen() {
         // console.log(10*(4-lastJsonMessage.y)+4+lastJsonMessage.x)
         // message2 = copy(lastJsonMessage)
         // console.log(lastJsonMessage)
+        
         let pos = JSON.parse(message.data)
         changeCase(10*(4-pos.y)+4+pos.x)
+        console.log(pos)
     }
 
     const socketUrl = "ws://localhost:10406"
 
     const { sendJsonMessage, lastJsonMessage, lastMessage } = useWebSocket(socketUrl,{onMessage:onReceivedSocket});
     sendJsonMessage({
+        req: "connection",
         type: "screen"
     })
 

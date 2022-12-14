@@ -4,11 +4,11 @@ import Button from '../components/phone/button';
 import Godet from '../components/phone/godet'
 import React,{useState,useEffect} from 'react';
 
-let randomId = parseInt(Math.random()*10)
 
 const colordict = {0:'bg-emerald-500', 1 : 'bg-green-400', 3 : 'bg-yellow-300', 4 : 'bg-amber-500', 2 : 'bg-lime-200', 5 : 'bg-red-500', 6 : 'bg-rose-400', 7 : 'bg-cyan-300', 8 : 'bg-sky-500', 10 : 'bg-purple-500', 9 : 'bg-indigo-300', 11 : 'bg-amber-800', 12 : 'bg-black', 13 : 'bg-slate-400', 14 : 'bg-slate-200', 15 : 'bg-white'};
 const namedict = {0:'Emerald', 1 : 'Green', 3 : 'Yellow', 4 : 'Amber', 2 : 'Lime', 5 : 'Red', 6 : 'Rose', 7 : 'Cyan', 8 : 'Sky', 10 : 'Purple', 9 : 'Indigo', 11 : 'bg-amber-800', 12 : 'bg-black', 13 : 'bg-slate-400', 14 : 'bg-slate-200', 15 : 'bg-white'};
-const socketUrl = "ws://localhost:10406"
+
+const jbdict = {red : 5,yellow : 3}; //dict pour le front selon le back de jb
 
 export default function Phone({grid,cursor,sendJsonMessage}) {
 
@@ -22,9 +22,8 @@ for (let i=0;i<16;i++){
   const [helpState, setHelpState] = useState({Display : '-z-10 opacity-0', State : 'off' });
   const [paletteState,setPaletteState] = useState({Display : '-z-10 opacity-0', State : 'off', Color : 'black' });
   const [pixel,setPixel] = useState(0);
-  const [player,setPlayer]=useState({id : randomId, Name : namedict[randomId], Color : colordict[randomId]});
   
-  
+
 //   function onReceivedSocket(message){
 //     let playerModif = JSON.parse(message.data)
 //     setPlayer(prevState => ({...prevState,id : playerModif.id, Color : colordict[playerModif.id],Name : namedict[playerModif.id] }))
@@ -44,6 +43,8 @@ for (let i=0;i<16;i++){
            }
       )
       };
+
+      console.log('Received from WS component',cursor)
 
   function helpOnClick() {
     if (helpState.Display != '-z-10 opacity-0') {
@@ -152,11 +153,11 @@ for (let i=0;i<16;i++){
             </div>
             <div className="my-1 py-2 flex bg-primary rounded-lg items-center justify-center">
               <h1 className="text-xl text-white font-extrabold">
-                {player.Name} Player
+                {namedict[cursor.id]} Player
               </h1>
               {/*On ne peut pas faire bg-${player}-400 car tailwind n'autorise pas ce genre de syntax,
                il faudra donc créer un dict qui possède le nom de la couleur du joueur et son équivalent tailwind ou un hex*/}
-              <div  className={`${player.Color} mx-2 rounded-lg w-8 h-8 border-black border-2`}>
+              <div  className={`${colordict[cursor.id]} mx-2 rounded-lg w-8 h-8 border-black border-2`}>
               </div>
             </div>
             <div className="my-1 grid grid-rows-1 bg-primary rounded-lg h-1/3 place-items-center">

@@ -1,9 +1,8 @@
 import { ExclamationTriangleIcon, MagnifyingGlassCircleIcon } from '@heroicons/react/20/solid'
 import Case from "../components/screen/case"
-import useWebSocket from 'react-use-websocket';
 import { useState } from 'react';
 
-export default function Screen() {
+export default function Screen({grid,cursor,sendJsonMessage}) {
 
     const [caseLighted,changeCase]=useState(44)
 
@@ -12,34 +11,6 @@ export default function Screen() {
         cases.push(<Case key={i} enlightCase={caseLighted} case_number={i}/>)
     }
 
-    //Websockets
-
-    // let socket = new WebSocket('ws://localhost:10406');
-    // socket.send(JSON.stringify({
-    //     type: "screen"
-    // }));
-    // socket.onmessage = function(str) {
-    //     console.log("Someone sent: ", str);
-    // };
-
-    function onReceivedSocket(message){
-        // changeCase(10*(4-lastJsonMessage.y)+4+lastJsonMessage.x)
-        // console.log(10*(4-lastJsonMessage.y)+4+lastJsonMessage.x)
-        // message2 = copy(lastJsonMessage)
-        // console.log(lastJsonMessage)
-        
-        let pos = JSON.parse(message.data)
-        changeCase(10*(4-pos.y)+4+pos.x)
-        console.log(pos)
-    }
-
-    const socketUrl = "ws://localhost:10406"
-
-    const { sendJsonMessage, lastJsonMessage, lastMessage } = useWebSocket(socketUrl,{onMessage:onReceivedSocket});
-    sendJsonMessage({
-        req: "connection",
-        type: "screen"
-    })
 
   return (
     <>

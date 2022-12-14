@@ -7,6 +7,8 @@ import {
 } from "react-router-dom"
 import './index.css'
 
+import WebSocket from './WebSocket'
+
 import Root from './routes/root'
 import Error from './routes/error'
 import Screen from './routes/screen'
@@ -20,11 +22,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "screen",
-        element: <Screen />,
+        element: <WebSocket Component={Screen} type="screen"/>,
       },
       {
         path: "phone",
-        element: <Phone />
+        element: <WebSocket Component={Phone} type="phone"/>
       }
     ]
   },

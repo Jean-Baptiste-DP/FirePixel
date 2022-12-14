@@ -3,7 +3,6 @@ import HomeJoystick from '../components/phone/homeJoystick';
 import Button from '../components/phone/button';
 import Godet from '../components/phone/godet'
 import React,{useState,useEffect} from 'react';
-import useWebSocket from 'react-use-websocket';
 
 let randomId = parseInt(Math.random()*10)
 
@@ -11,7 +10,7 @@ const colordict = {0:'bg-emerald-500', 1 : 'bg-green-400', 3 : 'bg-yellow-300', 
 const namedict = {0:'Emerald', 1 : 'Green', 3 : 'Yellow', 4 : 'Amber', 2 : 'Lime', 5 : 'Red', 6 : 'Rose', 7 : 'Cyan', 8 : 'Sky', 10 : 'Purple', 9 : 'Indigo', 11 : 'bg-amber-800', 12 : 'bg-black', 13 : 'bg-slate-400', 14 : 'bg-slate-200', 15 : 'bg-white'};
 const socketUrl = "ws://localhost:10406"
 
-export default function Phone() {
+export default function Phone({grid,cursor,sendJsonMessage}) {
 
 
 
@@ -26,27 +25,15 @@ for (let i=0;i<16;i++){
   const [player,setPlayer]=useState({id : randomId, Name : namedict[randomId], Color : colordict[randomId]});
   
   
-  function onReceivedSocket(message){
-    let playerModif = JSON.parse(message.data)
-    setPlayer(prevState => ({...prevState,id : playerModif.id, Color : colordict[playerModif.id],Name : namedict[playerModif.id] }))
-    console.log('Message sent from Back to player',playerModif)
-}
+//   function onReceivedSocket(message){
+//     let playerModif = JSON.parse(message.data)
+//     setPlayer(prevState => ({...prevState,id : playerModif.id, Color : colordict[playerModif.id],Name : namedict[playerModif.id] }))
+//     console.log('Message sent from Back to player',playerModif)
+// }
 
-const { sendJsonMessage, lastJsonMessage, lastMessage } = useWebSocket(socketUrl,{onMessage:onReceivedSocket});
+// const { sendJsonMessage, lastJsonMessage, lastMessage } = useWebSocket(socketUrl,{onMessage:onReceivedSocket});
 
 
-    useEffect(() => {
-
-      sendJsonMessage({
-        req : "connection",
-        type: "phone"
-      })
-      console.log("Connection message sent to back");
-  
-    },[]);
-  
-
-  
  function applyOnClick(websocket, pixel){
       console.log(pixel);
         websocket(

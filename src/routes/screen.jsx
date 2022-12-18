@@ -1,6 +1,17 @@
-import { ExclamationTriangleIcon } from '@heroicons/react/20/solid'
+import { ExclamationTriangleIcon, MagnifyingGlassCircleIcon } from '@heroicons/react/20/solid'
+import Case from "../components/screen/case"
+import { useState } from 'react';
 
-export default function Screen() {
+export default function Screen({grid,cursor,sendJsonMessage}) {
+
+    const [caseLighted,changeCase]=useState(44)
+
+    let cases=[]
+    for(let i=0;i<100;i++){
+        cases.push(<Case key={i} enlightCase={caseLighted} case_number={i}/>)
+    }
+
+
   return (
     <>
       <div className="block sm:hidden rounded-md bg-yellow-100 p-4 m-4">
@@ -25,7 +36,10 @@ export default function Screen() {
             coucou
           </div>
           <div className="w-4/5 bg-secondary">
-            coucou
+            <div className='grid grid-cols-10 w-80'>
+
+              {cases}
+            </div>
           </div>
         </div>
       </div>

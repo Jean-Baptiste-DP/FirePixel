@@ -19,7 +19,7 @@ export default function WebSocket({Component,type}){
     for (var i = 0; i < gridHeight; i++) {
         pseudo_grid[i] = new Array(gridWidth);
         for(var j=0; j< gridWidth; j++){
-            pseudo_grid[i][j]="bg-black"
+            pseudo_grid[i][j]=12
         }
     }
 
@@ -66,7 +66,7 @@ export default function WebSocket({Component,type}){
             }
         }else if(data.req && data.req=="chgColor" && data.x!=undefined && data.y!= undefined && data.color!=undefined){
             let pseudo_grid = [...grid]
-            pseudo_grid[gridHeight-data.y-1][data.x]=data.color
+            pseudo_grid[data.y][data.x]=data.color
             changeGrid(pseudo_grid)
         }
     }

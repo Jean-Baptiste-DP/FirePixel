@@ -13,7 +13,7 @@ export default function HomeJoystick({websocket}) {
   function handleMove(event) {
     var {x,y} = event;
     x = parseInt(x*5);
-    y = parseInt(y*5);
+    y = - parseInt(y*5);
     websocket(
       {
         req : 'move',

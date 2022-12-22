@@ -12,13 +12,11 @@ export default function HomeJoystick({websocket}) {
 
   function handleMove(event) {
     var {x,y} = event;
-    x = parseInt(x*5);
-    y = - parseInt(y*5);
     websocket(
       {
         req : 'move',
-        x : x,
-        y : y
+        x : x*2,
+        y : y*2
       });
       console.log("Msg sent to back : " , JSON.stringify({req : 'move',
       x : x,
@@ -29,7 +27,7 @@ export default function HomeJoystick({websocket}) {
   return (
     <>
       <Joystick baseImage="joystick_smaller.png" 
-                throttle={1000} 
+                throttle={200}
                 size={200} 
                 stickSize={50} 
                 baseColor="white" 

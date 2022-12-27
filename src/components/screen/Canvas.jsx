@@ -1,22 +1,13 @@
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
+import useCanvas from '../../hook/useCanvas';
 
-export default function Canvas({ height, width}) {
-    const canvasRef = useRef(null)
-  
-    const draw = ctx => {
-      ctx.fillStyle = '#ff0000'
-      ctx.beginPath()
-      ctx.arc(height/2, width/2, 30, 0, Math.PI)
-      ctx.fill()
+export default function Canvas({ grid, newPixel, height, width }) {
+    
+    function draw(ctx, x, y, color){
+      console.log("Draw at position ",x,", ", y, " the color ",color)
     }
+
+    const canvasRef = useCanvas(grid, draw, newPixel)
     
-    useEffect(() => {
-      
-      const canvas = canvasRef.current
-      const context = canvas.getContext('2d')
-      
-      draw(context)
-    }, [draw])
-    
-    return <canvas ref={canvasRef} height={heigth} width={width}/>
+    return <canvas ref={canvasRef} height={height} width={width}/>
 }

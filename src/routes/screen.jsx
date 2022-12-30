@@ -9,16 +9,6 @@ const namedict = {0:'Emerald', 1 : 'Green', 3 : 'Yellow', 4 : 'Amber', 2 : 'Lime
 
 export default function Screen({grid,cursor,sendJsonMessage}) {
 
-    const [localCursor,changecursor]=useState(cursor)
-    useEffect(()=>{console.log("New cursor received : ",cursor);changecursor(cursor)},[cursor])
-    useEffect(()=>{console.log("New grid received : ",grid)},[grid])
-
-   let cases=[]
-    for(let i=0;i<10000;i++){
-        cases.push(<Case n={i} cursor={localCursor} grid={grid} key={i}/>)
-    }
-
-
   return (
     <>
       <div className="block sm:hidden rounded-md bg-yellow-100 p-4 m-4">
@@ -43,7 +33,7 @@ export default function Screen({grid,cursor,sendJsonMessage}) {
             coucou
           </div>
           <div className="w-4/5 bg-secondary">
-            <Canvas grid={grid} newPixel={{x:0, y:0, color:15}} squareSide={10}/>
+            <Canvas grid={grid} newPixel={{x:0, y:0, color:15}} squareSide={10} cursors={cursor}/>
           </div>
         </div>
       </div>

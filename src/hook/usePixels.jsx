@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 
-export default function useCanvas(grid, draw, newPixel){
+export default function usePixels(grid, draw, newPixel){
     const canvasRef = useRef(null)
 
     const height = grid.length;

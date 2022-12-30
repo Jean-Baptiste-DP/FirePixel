@@ -12,14 +12,18 @@ export default function WebSocket({Component,type}){
 
     const gridHeight = 100
     const gridWidth = 100
-    const nbPlayerMax = 16 // 4 est le nombre de personnes pouvant jouer en simultané, doit être changé si besoin
+    const nbPlayerMax = 16 // 16 est le nombre de personnes pouvant jouer en simultané, doit être changé si besoin
 
     var pseudo_grid = new Array(gridHeight);
 
     for (var i = 0; i < gridHeight; i++) {
         pseudo_grid[i] = new Array(gridWidth);
         for(var j=0; j< gridWidth; j++){
-            pseudo_grid[i][j]=12
+            if(i==50 && j==50){
+                pseudo_grid[i][j]=12;
+            }else{
+                pseudo_grid[i][j]=15;
+            }
         }
     }
 

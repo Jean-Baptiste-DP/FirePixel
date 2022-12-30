@@ -43,7 +43,7 @@ export default function Screen({grid,cursor,sendJsonMessage}) {
             coucou
           </div>
           <div className="w-4/5 bg-secondary">
-            <Canvas height={1000} width={1000} grid={[[]]} newPixel={{x:0, y:0, color:12}}/>
+            <Canvas grid={grid} newPixel={{x:0, y:0, color:15}} squareSide={10}/>
           </div>
         </div>
       </div>

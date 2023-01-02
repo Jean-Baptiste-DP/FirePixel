@@ -13,6 +13,7 @@ import Root from './routes/root'
 import Error from './routes/error'
 import Screen from './routes/screen'
 import Phone from './routes/phone'
+import Home from './routes/home'
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
     element: <Root />,
     errorElement: <Error />,
     children: [
+      {
+        path: "/",
+        element: <Home />
+      },
       {
         path: "screen",
         element: <WebSocket Component={Screen} type="screen"/>,

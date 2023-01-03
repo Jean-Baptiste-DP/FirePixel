@@ -18,6 +18,7 @@ export default function Canvas({ grid, newPixel, squareSide, cursors}) {
     function draw_pixel(ctx, x, y, color){
       ctx.fillStyle = colorList[color];
       ctx.fillRect(x*squareSide,y*squareSide,squareSide,squareSide)
+      ctx.restore()
     }
 
     function draw_cursor(ctx, x, y, color){
@@ -30,7 +31,8 @@ export default function Canvas({ grid, newPixel, squareSide, cursors}) {
       ctx.strokeStyle = colorList[color];
       ctx.stroke();
       ctx.strokeRect(x*squareSide,y*squareSide,squareSide,squareSide)
-      console.log("Pixel position x:",x,", y:",y," couleur:",color)
+      ctx.restore()
+      console.log("Mv cursor")
     }
 
     const height = grid.length*squareSide;

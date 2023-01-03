@@ -42,6 +42,10 @@ export default function WebSocket({Component,type}){
 
     const [cursor, setCursor] = useState(pseudo_cursor);
 
+    //Last changed pixel
+
+    const [lastChangedPixel, chglastPixel] = useState({x:0, y:0, color: grid[0][0]})
+
     // --- Websockets ---
 
     useEffect(() => {
@@ -61,7 +65,7 @@ export default function WebSocket({Component,type}){
         if(data.req && data.req=="move" && data.x!=undefined && data.y!= undefined && data.id!=undefined){
             if(type=="screen"){
                 let pseudo_cursor=[...cursor]
-                pseudo_cursor[data.id] = {x:data.x, y:data.y, id:data.id, used:true}
+                pseudo_cursor[data.id] = {x:data.y, y:data.x, id:data.id, used:true}
                 setCursor(pseudo_cursor)
             }else{
                 setCursor({x:data.x, y:data.y,id:data.id})
@@ -70,10 +74,11 @@ export default function WebSocket({Component,type}){
             let pseudo_grid = [...grid]
             pseudo_grid[data.y][data.x]=data.color
             changeGrid(pseudo_grid)
+            chglastPixel({x:data.x, y:data.y, color:data.color})
         }
     }
 
     return(
-        <Component grid={grid} cursor={cursor} sendJsonMessage={sendJsonMessage}/>
+        <Component grid={grid} cursor={cursor} sendJsonMessage={sendJsonMessage} newPixel={lastChangedPixel}/>
     )
 }

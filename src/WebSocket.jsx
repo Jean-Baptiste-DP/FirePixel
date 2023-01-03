@@ -14,28 +14,33 @@ export default function WebSocket({Component,type}){
     const gridWidth = 100
     const nbPlayerMax = 16 // 16 est le nombre de personnes pouvant jouer en simultané, doit être changé si besoin
 
-    var grid = new Array(gridHeight);
+    var pseudo_grid = new Array(gridHeight);
 
     for (var i = 0; i < gridHeight; i++) {
-        grid[i] = new Array(gridWidth);
+        pseudo_grid[i] = new Array(gridWidth);
         for(var j=0; j< gridWidth; j++){
-            grid[i][j]=15;
+            pseudo_grid[i][j]=15;
         }
     }
+
+    const [grid, changeGrid] = useState(pseudo_grid)
 
 
     // Cursor
 
 
-    let cursor;
+    let pseudo_cursor;
+
     if(type=="screen"){
-        cursor = new Array(nbPlayerMax)
+        pseudo_cursor = new Array(nbPlayerMax)
         for(let i=0;i<nbPlayerMax;i++){
-            cursor[i] = {x:0,y:0,id:-1,used:false}
+            pseudo_cursor[i] = {x:0,y:0,id:-1,used:false}
         }
     }else{
-        cursor={x:0,y:0,id:-1}
+        pseudo_cursor={x:0,y:0,id:-1}
     }
+
+    const [cursor, setCursor] = useState(pseudo_cursor);
 
     // --- Websockets ---
 
@@ -55,12 +60,16 @@ export default function WebSocket({Component,type}){
         
         if(data.req && data.req=="move" && data.x!=undefined && data.y!= undefined && data.id!=undefined){
             if(type=="screen"){
-                cursor[data.id] = {x:data.x, y:data.y, id:data.id, used:true}
+                let pseudo_cursor=[...cursor]
+                pseudo_cursor[data.id] = {x:data.x, y:data.y, id:data.id, used:true}
+                setCursor(pseudo_cursor)
             }else{
-                cursor = {x:data.x, y:data.y,id:data.id}
+                setCursor({x:data.x, y:data.y,id:data.id})
             }
         }else if(data.req && data.req=="chgColor" && data.x!=undefined && data.y!= undefined && data.color!=undefined){
-            grid[data.y][data.x]=data.color
+            let pseudo_grid = [...grid]
+            pseudo_grid[data.y][data.x]=data.color
+            changeGrid(pseudo_grid)
         }
     }
 

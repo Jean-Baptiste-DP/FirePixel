@@ -4,6 +4,15 @@ import usePixels from '../../hook/usePixels';
 
 const colorList = ['#10B981', '#4ADE80', '#D9F99D', '#FDE047', '#F59E0B', '#EF4444', '#FB7185', '#67E8F9', '#0EA5E9', '#A8B4FC', '#A855F7', '#92400E', '#000000', '#94A3B8', '#E2E8F0', '#FFFFFF'];
 
+function hexToRgb(hex) {
+  var result = /^#?([A-F\d]{2})([A-F\d]{2})([A-F\d]{2})$/i.exec(hex);
+  return result ? {
+    r: parseInt(result[1], 16),
+    g: parseInt(result[2], 16),
+    b: parseInt(result[3], 16)
+  } : null;
+}
+
 export default function Canvas({ grid, newPixel, squareSide, cursors}) {
     
     function draw_pixel(ctx, x, y, color){
@@ -12,6 +21,15 @@ export default function Canvas({ grid, newPixel, squareSide, cursors}) {
     }
 
     function draw_cursor(ctx, x, y, color){
+      const rgb = hexToRgb(colorList[color])
+      ctx.beginPath();
+      ctx.arc((x+0.5)*squareSide, (y+0.5)*squareSide, 1.4*squareSide, 0, 2 * Math.PI);
+      ctx.fillStyle = "rgba("+rgb.r+","+rgb.g+","+rgb.b+",0.3)";
+      ctx.fill();
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = colorList[color];
+      ctx.stroke();
+      ctx.strokeRect(x*squareSide,y*squareSide,squareSide,squareSide)
       console.log("Pixel position x:",x,", y:",y," couleur:",color)
     }
 

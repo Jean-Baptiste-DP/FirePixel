@@ -1,57 +1,37 @@
 import { Joystick } from 'react-joystick-component';
 
-
-const moveX = {'RIGHT' : 1, 'LEFT' : -1, 'BACKWARD' :0, 'FORWARD' : 0};
-const moveY = {'FORWARD' : 1, 'BACKWARD' : -1, 'LEFT' : 0, 'RIGHT' : 0};
-
-
-
 export default function HomeJoystick({websocket,color}) {
 
-
+  var x = 0.5;
+  var y = 0.5;
 
   function handleMove(event) {
-    var {x,y} = event;
-    websocket(
-      {
-        req : 'move',
-        x : x*2,
-        y : y*2
-      });
-      websocket(
-        {
-          req : 'chgColor',
-          color : color
-        });
-      console.log("Msg sent to back : " , JSON.stringify({req : 'move',
-      x : x,
-      y : y}))
+    var {d_x,d_y} = event;
 
+    x+= d_x*2;
+    y+= d_y*2;
+
+
+    if(Math.abs(x)>=1 || Math.abs(y)>=1){
+      x_int = Math.trunc(x)
+      y_int = Math.trunc(y)
+
+      x-= x_int
+      y-= y_int
+
+      websocket(
+            {
+              req : 'move',
+              x : x_int,
+              y : y_int
+            });
+      websocket(
+              {
+                req : 'chgColor',
+                color : color
+              });
+    }
   }
-
-
-  /*let t = 100;
-
-  function handleMove(event) {
-    var {x,y,distance,direction} = event;
-    t = 420-4*parseInt(distance);
-    websocket(
-      {
-        req : 'move',
-        x : moveX[direction],
-        y : moveY[direction]
-      });
-      websocket(
-        {
-          req : 'chgColor',
-          color : color
-        });
-      console.log("Msg sent to back : " , JSON.stringify({req : 'move',
-      x : x,
-      y : y}))
-      console.log('throttle:',t,'direction:',direction)
-      
-  }*/
 
 
   return (
@@ -61,10 +41,8 @@ export default function HomeJoystick({websocket,color}) {
                 size={200} 
                 stickSize={50} 
                 baseColor="white" 
-                stickColor="black" 
-                //start={handleStart}
-                move={handleMove} 
-                //stop={handleStop}
+                stickColor="black"
+                move={handleMove}
                 >
 
       </Joystick>

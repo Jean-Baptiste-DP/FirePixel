@@ -42,7 +42,7 @@ for (let i=0;i<16;i++){
       )
       };
 
-      console.log('Received from WS component',cursor)
+      //console.log('Received from WS component',cursor)
 
   function helpOnClick() {
     if (helpState.Display != '-z-10 opacity-0') {
@@ -85,15 +85,7 @@ for (let i=0;i<16;i++){
   //       y:y
   //   }))
   // }
-
-
-
-  /*const { sendJsonMessage } = useWebSocket(socketUrl);
-  sendJsonMessage({
-        req : "connection",
-        type: "phone"
-    })*/
-
+  
     return (
       <>
         <div className="hidden sm:block rounded-md bg-yellow-100 p-4 m-4">
@@ -159,7 +151,7 @@ for (let i=0;i<16;i++){
               </div>
             </div>
             <div className="my-1 grid grid-rows-1 bg-primary rounded-lg h-1/3 place-items-center">
-            <HomeJoystick websocket={sendJsonMessage}/>
+            <HomeJoystick websocket={sendJsonMessage} color={pixel}/>
             </div>
               <div className='h-[8%] p-2 grid grid-cols-3 place-items-center gap-5 relative z-10 bg-primary rounded-lg'>
                 <Button text='Help' onClick={helpOnClick} state={helpState.State}/>

@@ -8,8 +8,6 @@ import React,{useState,useEffect} from 'react';
 const colordict = {0:'bg-emerald-500', 1 : 'bg-green-400', 3 : 'bg-yellow-300', 4 : 'bg-amber-500', 2 : 'bg-lime-200', 5 : 'bg-red-500', 6 : 'bg-rose-400', 7 : 'bg-cyan-300', 8 : 'bg-sky-500', 10 : 'bg-purple-500', 9 : 'bg-indigo-300', 11 : 'bg-amber-800', 12 : 'bg-black', 13 : 'bg-slate-400', 14 : 'bg-slate-200', 15 : 'bg-white'};
 const namedict = {0:'Emerald', 1 : 'Green', 3 : 'Yellow', 4 : 'Amber', 2 : 'Lime', 5 : 'Red', 6 : 'Rose', 7 : 'Cyan', 8 : 'Sky', 10 : 'Purple', 9 : 'Indigo', 11 : 'bg-amber-800', 12 : 'bg-black', 13 : 'bg-slate-400', 14 : 'bg-slate-200', 15 : 'bg-white'};
 
-const jbdict = {red : 5,yellow : 3}; //dict pour le front selon le back de jb
-
 export default function Phone({grid,cursor,sendJsonMessage}) {
 
 
@@ -44,7 +42,7 @@ for (let i=0;i<16;i++){
       )
       };
 
-      console.log('Received from WS component',cursor)
+      //console.log('Received from WS component',cursor)
 
   function helpOnClick() {
     if (helpState.Display != '-z-10 opacity-0') {
@@ -87,15 +85,7 @@ for (let i=0;i<16;i++){
   //       y:y
   //   }))
   // }
-
-
-
-  /*const { sendJsonMessage } = useWebSocket(socketUrl);
-  sendJsonMessage({
-        req : "connection",
-        type: "phone"
-    })*/
-
+  
     return (
       <>
         <div className="hidden sm:block rounded-md bg-yellow-100 p-4 m-4">
@@ -161,7 +151,7 @@ for (let i=0;i<16;i++){
               </div>
             </div>
             <div className="my-1 grid grid-rows-1 bg-primary rounded-lg h-1/3 place-items-center">
-            <HomeJoystick websocket={sendJsonMessage}/>
+            <HomeJoystick websocket={sendJsonMessage} color={pixel}/>
             </div>
               <div className='h-[8%] p-2 grid grid-cols-3 place-items-center gap-5 relative z-10 bg-primary rounded-lg'>
                 <Button text='Help' onClick={helpOnClick} state={helpState.State}/>

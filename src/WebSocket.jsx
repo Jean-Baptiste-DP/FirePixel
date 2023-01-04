@@ -12,14 +12,14 @@ export default function WebSocket({Component,type}){
 
     const gridHeight = 100
     const gridWidth = 100
-    const nbPlayerMax = 16 // 4 est le nombre de personnes pouvant jouer en simultané, doit être changé si besoin
+    const nbPlayerMax = 16 // 16 est le nombre de personnes pouvant jouer en simultané, doit être changé si besoin
 
     var pseudo_grid = new Array(gridHeight);
 
     for (var i = 0; i < gridHeight; i++) {
         pseudo_grid[i] = new Array(gridWidth);
         for(var j=0; j< gridWidth; j++){
-            pseudo_grid[i][j]="bg-black"
+            pseudo_grid[i][j]=15;
         }
     }
 
@@ -30,6 +30,7 @@ export default function WebSocket({Component,type}){
 
 
     let pseudo_cursor;
+
     if(type=="screen"){
         pseudo_cursor = new Array(nbPlayerMax)
         for(let i=0;i<nbPlayerMax;i++){
@@ -38,7 +39,12 @@ export default function WebSocket({Component,type}){
     }else{
         pseudo_cursor={x:0,y:0,id:-1}
     }
+
     const [cursor, setCursor] = useState(pseudo_cursor);
+
+    //Last changed pixel
+
+    const [lastChangedPixel, chglastPixel] = useState({x:0, y:0, color: grid[0][0]})
 
     // --- Websockets ---
 
@@ -54,24 +60,25 @@ export default function WebSocket({Component,type}){
     function onReceivedSocket(message){
         let data = JSON.parse(message.data)
 
-        console.log("Socket received",data)
+        // console.log("Socket received",data)
         
         if(data.req && data.req=="move" && data.x!=undefined && data.y!= undefined && data.id!=undefined){
             if(type=="screen"){
                 let pseudo_cursor=[...cursor]
-                pseudo_cursor[data.id] = {x:data.x, y:data.y, id:data.id, used:true}
+                pseudo_cursor[data.id] = {x:data.y, y:data.x, id:data.id, used:true}
                 setCursor(pseudo_cursor)
             }else{
                 setCursor({x:data.x, y:data.y,id:data.id})
             }
         }else if(data.req && data.req=="chgColor" && data.x!=undefined && data.y!= undefined && data.color!=undefined){
             let pseudo_grid = [...grid]
-            pseudo_grid[gridHeight-data.y-1][data.x]=data.color
+            pseudo_grid[data.y][data.x]=data.color
             changeGrid(pseudo_grid)
+            chglastPixel({x:data.x, y:data.y, color:data.color})
         }
     }
 
     return(
-        <Component grid={grid} cursor={cursor} sendJsonMessage={sendJsonMessage}/>
+        <Component grid={grid} cursor={cursor} sendJsonMessage={sendJsonMessage} newPixel={lastChangedPixel}/>
     )
 }

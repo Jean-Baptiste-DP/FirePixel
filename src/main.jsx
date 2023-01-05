@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import {
   createBrowserRouter,
+  createHashRouter,
   RouterProvider,
   Route
 } from "react-router-dom"
@@ -15,7 +16,7 @@ import Screen from './routes/screen'
 import Phone from './routes/phone'
 import Home from './routes/home'
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     element: <Root />,

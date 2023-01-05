@@ -1,73 +1,48 @@
-import { Joystick } from 'react-joystick-component';
+import BetterJoystick from "./betterJoystick";
 
+export default function HomeJoystick({websocket,color,pixelArt}) {
 
-const moveX = {'RIGHT' : 1, 'LEFT' : -1, 'BACKWARD' :0, 'FORWARD' : 0};
-const moveY = {'FORWARD' : 1, 'BACKWARD' : -1, 'LEFT' : 0, 'RIGHT' : 0};
-
-
-
-export default function HomeJoystick({websocket,color}) {
-
-
+  var x = 0;
+  var y = 0;
 
   function handleMove(event) {
-    var {x,y} = event;
-    websocket(
-      {
-        req : 'move',
-        x : x*2,
-        y : y*2
-      });
-      websocket(
-        {
-          req : 'chgColor',
-          color : color
-        });
-      console.log("Msg sent to back : " , JSON.stringify({req : 'move',
-      x : x,
-      y : y}))
+    
+    x+= event.x;
+    y+= event.y;
 
+    if(Math.abs(x)>=1 || Math.abs(y)>=1){
+
+      websocket(
+            {
+              req : 'move',
+              x : Math.trunc(x),
+              y : Math.trunc(y)
+            });
+
+      x= 0
+      y= 0
+
+      if (pixelArt == true) {
+        websocket(
+                {
+                  req : 'chgColor',
+                  color : color
+                });
+      }
+    }
   }
 
 
-  /*let t = 100;
-
-  function handleMove(event) {
-    var {x,y,distance,direction} = event;
-    t = 420-4*parseInt(distance);
-    websocket(
-      {
-        req : 'move',
-        x : moveX[direction],
-        y : moveY[direction]
-      });
-      websocket(
-        {
-          req : 'chgColor',
-          color : color
-        });
-      console.log("Msg sent to back : " , JSON.stringify({req : 'move',
-      x : x,
-      y : y}))
-      console.log('throttle:',t,'direction:',direction)
-      
-  }*/
-
-
   return (
-    <>
-      <Joystick baseImage="joystick_smaller.png" 
-                throttle={50}
-                size={200} 
-                stickSize={50} 
-                baseColor="white" 
-                stickColor="black" 
-                //start={handleStart}
-                move={handleMove} 
-                //stop={handleStop}
-                >
+    <BetterJoystick baseImage="joystick_smaller.png" 
+              throttle={50}
+              size={200} 
+              stickSize={50} 
+              baseColor="white" 
+              stickColor="black"
+              move={handleMove}
+              >
 
-      </Joystick>
-    </>
+    </BetterJoystick>
   )
 }

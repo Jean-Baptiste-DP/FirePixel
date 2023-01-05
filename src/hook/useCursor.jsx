@@ -51,8 +51,6 @@ export default function useCursor(grid, draw, ref, cursors, draw_cursor){
         const canvas = ref.current
         const context = canvas.getContext('2d')
 
-        console.log("Cursors")
-        console.log(cursors)
 
         for(let i=0; i<cursors.length; i++){
             if(cursors[i].x!=old_cursors.current[i].x || cursors[i].y!=old_cursors.current[i].y){
@@ -64,8 +62,6 @@ export default function useCursor(grid, draw, ref, cursors, draw_cursor){
                 draw_cursor(context, cursors[i].y, height-1-cursors[i].x, cursors[i].id)
             }else if(!cursors[i].used && old_cursors.current[i].used){
                 clearCursor(context, old_cursors.current[i].x, old_cursors.current[i].y)
-            }else{
-                console.log("No change in Cursors")
             }
         }
         old_cursors.current = cursors

@@ -6,8 +6,6 @@ export default function HomeJoystick({websocket,color,pixelArt}) {
   var y = 0;
 
   function handleMove(event) {
-
-    console.log(event)
     
     x+= event.x;
     y+= event.y;

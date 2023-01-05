@@ -6,15 +6,15 @@ export default function HomeJoystick({websocket,color}) {
   var y = 0.5;
 
   function handleMove(event) {
-    var {d_x,d_y} = event;
-
+    var d_x = event.x;
+    var d_y = event.y;
+    
     x+= d_x*2;
     y+= d_y*2;
 
-
     if(Math.abs(x)>=1 || Math.abs(y)>=1){
-      x_int = Math.trunc(x)
-      y_int = Math.trunc(y)
+      var x_int = Math.trunc(x)
+      var y_int = Math.trunc(y)
 
       x-= x_int
       y-= y_int

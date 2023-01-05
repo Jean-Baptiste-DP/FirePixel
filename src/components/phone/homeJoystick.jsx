@@ -1,4 +1,4 @@
-import { Joystick } from 'react-joystick-component';
+import BetterJoystick from "./betterJoystick";
 
 export default function HomeJoystick({websocket,color,pixelArt}) {
 
@@ -6,6 +6,8 @@ export default function HomeJoystick({websocket,color,pixelArt}) {
   var y = 0;
 
   function handleMove(event) {
+
+    console.log(event)
     
     x+= event.x;
     y+= event.y;
@@ -21,7 +23,7 @@ export default function HomeJoystick({websocket,color,pixelArt}) {
 
       x= 0
       y= 0
-      
+
       if (pixelArt == true) {
         websocket(
                 {
@@ -34,17 +36,15 @@ export default function HomeJoystick({websocket,color,pixelArt}) {
 
 
   return (
-    <>
-      <Joystick baseImage="joystick_smaller.png" 
-                throttle={50}
-                size={200} 
-                stickSize={50} 
-                baseColor="white" 
-                stickColor="black"
-                move={handleMove}
-                >
+    <BetterJoystick baseImage="joystick_smaller.png" 
+              throttle={50}
+              size={200} 
+              stickSize={50} 
+              baseColor="white" 
+              stickColor="black"
+              move={handleMove}
+              >
 
-      </Joystick>
-    </>
+    </BetterJoystick>
   )
 }

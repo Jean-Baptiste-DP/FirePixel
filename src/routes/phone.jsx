@@ -20,6 +20,7 @@ for (let i=0;i<16;i++){
   const [helpState, setHelpState] = useState({Display : '-z-10 opacity-0', State : 'off' });
   const [paletteState,setPaletteState] = useState({Display : '-z-10 opacity-0', State : 'off', Color : 'black' });
   const [pixel,setPixel] = useState(0);
+  const [pixelArt,setPixelArt] = useState(false);
   
 
 //   function onReceivedSocket(message){
@@ -62,6 +63,15 @@ for (let i=0;i<16;i++){
     }
   }
 
+  function togglePixelArt() {
+    if (pixelArt == false) {
+    setPixelArt(true)}
+    else {
+    setPixelArt(false)
+    }
+  
+  }
+
   const regles = "Dessinez ce que vous voulez sur l'écran! Dans l'onglet color, choissisez une couleur avec laquelle dessiner,puis déplacer le joystick pour appliquer la couleur. Si vous avez décidé de faire du PixelArt, appuyer sur 'Apply' pour placer les pixels un à un.";
 
 
@@ -101,9 +111,9 @@ for (let i=0;i<16;i++){
         <div className="block sm:hidden">
 
           <div className={`grid grid-cols-1 place-items-center absolute h-full w-full ${helpState.Display} transition duration-300 `}>
-            <div className="h-3/4 w-2/3  bg-dark rounded-lg p-4 ">
+            <button className="h-3/4 w-2/3  bg-dark rounded-lg p-4 " onClick={helpOnClick}>
               <p className="text-white text-xl">{regles}</p>
-            </div>
+            </button>
           </div>
 
           <div className={`grid place-items-center  absolute h-full w-full ${paletteState.Display} transition duration-300 `}>
@@ -122,7 +132,7 @@ for (let i=0;i<16;i++){
               <div className='text-xl font-extrabold text-white'>Color Selected:</div>
                 <Godet color={pixel}/> 
                 <div className='text-xl font-extrabold text-white'>PixelArt:</div>
-                <Godet state={true}/>
+                <Godet pixelArt={pixelArt} onClick={togglePixelArt}/>
                 
               </div>
             </div>
@@ -146,7 +156,7 @@ for (let i=0;i<16;i++){
               </div>
             </div>
             <div className="my-1 grid grid-rows-1 bg-primary rounded-lg h-1/3 place-items-center">
-            <HomeJoystick websocket={sendJsonMessage} color={pixel}/>
+            <HomeJoystick websocket={sendJsonMessage} color={pixel} pixelArt={pixelArt}/>
             </div>
               <div className='h-[8%] p-2 grid grid-cols-3 place-items-center gap-5 relative z-10 bg-primary rounded-lg'>
                 <Button text='Help' onClick={helpOnClick} state={helpState.State}/>

@@ -1,6 +1,6 @@
 import { Joystick } from 'react-joystick-component';
 
-export default function HomeJoystick({websocket,color}) {
+export default function HomeJoystick({websocket,color,pixelArt}) {
 
   var x = 0.5;
   var y = 0.5;
@@ -25,11 +25,14 @@ export default function HomeJoystick({websocket,color}) {
               x : x_int,
               y : y_int
             });
+        
+      if (pixelArt == true) {
       websocket(
               {
                 req : 'chgColor',
                 color : color
               });
+            }
     }
   }
 

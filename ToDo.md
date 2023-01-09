@@ -27,6 +27,7 @@ _ Peu important
 - _ Améliorer l'UI/UX
   - (+) Bouton "Apply" grisé en mode continu
   - + Bouton help plus intuitif
+  - + Joystick plus agréable
 - _ ++ Ajouter des couleurs en favoris pour ne pas avoir à cliquer sur color
 
 ### Screen
@@ -49,7 +50,7 @@ _ Peu important
 - /!\ Route pour récupérer la grille
   - + Mise à jour de la grille si changement
   - (+) Création de la route
-- ! ++ Gestion de plusieurs écran "screen"
+- JB -> ! ++ Gestion de plusieurs écran "screen"
   - Gestion de la taille de l'écran (taille différente entre les screen)
   - Cookie de connexion à un écran particulier (pour phone)
 - /!\ Sécurité de connexion des screen

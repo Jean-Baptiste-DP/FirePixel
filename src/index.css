@@ -3,3 +3,7 @@
 @tailwind utilities;
 
 #root{ @apply h-screen }
+
+.font-title{
+  font-family: 'Permanent Marker', serif;
+}

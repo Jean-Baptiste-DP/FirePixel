@@ -26,8 +26,10 @@ export default function Screen({grid, cursor, newPixel}) {
 
       <div className="hidden sm:block">
         <div className="w-full min-h-screen flex">
-          <div className="w-1/5 bg-primary flex flex-col items-center justify-center">
-            coucou
+          <div className='w-1/5 bg-primary flex flex-col items-center justify-evenly'>
+            <img src="logo_fire_pixel.png" alt="Logo FirePixel" className='w-3/5' />
+            <h1 className="text-white text-[4rem] font-title">FirePixel</h1>
+            <img src="qr-code.png" alt="melisse.ovh1.ec-m.fr/#/phone" className='w-4/5' />
           </div>
           <div className="w-4/5 bg-secondary">
             <Canvas grid={grid} newPixel={newPixel} squareSide={10} cursors={cursor}/>

@@ -1,6 +1,6 @@
 # ToDo FirePixel 
 
-/!\ Très important
+/!\ Critique
 
 ! Important
 
@@ -23,21 +23,26 @@ _ Peu important
 - /!\ Canvas
   - + Créer la structure
   - (+) Gérer le déplacement cases par cases
-  - + Récupérer les infos de la grille, via nouvelle route
-- _ Améliorer l'UI/UX
-  - (+) Bouton "Apply" grisé en mode continu
-  - + Bouton help plus intuitif
+  - + Récupérer les infos de la grille, via nouvelle route (grille 5x5)
+- ! Améliorer l'UI/UX
   - + Joystick plus agréable
-- _ ++ Ajouter des couleurs en favoris pour ne pas avoir à cliquer sur color
+  - + Implémentation figma :
+    - scroll palette
+    - toggle bouton
+    - help mini button
+    
+
+-
 
 ### Screen
 
 - Affichage du QRCode
-  - /!\ (+) QRcode static
+  - /!\ ~~(+) QRcode static~~
   - _ ++ QRcode dynamique pour jouer avec plusieurs écran différents
 - Terminer la partie gauche
   - ! (+) Figma
-  - ! + Implémentation
+  - ! + ~~Implémentation mvp~~
+  - ! implémentation totale
 - ! Adapter à la taille de l'écran
   - + Taille du canvas adapative
   - ++ Communication au back des dimensions

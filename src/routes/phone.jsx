@@ -1,18 +1,17 @@
 import { ExclamationTriangleIcon } from '@heroicons/react/20/solid'
 import HomeJoystick from '../components/phone/homeJoystick';
 import Button from '../components/phone/button';
-import Godet from '../components/phone/godet'
-import React,{useState,useEffect} from 'react';
+import Godet from '../components/phone/godet';
+import PhoneCanvas from '../components/phone/canvas';
+import React,{useState,useRef} from 'react';
 
 
 const colordict = {0:'bg-emerald-500', 1 : 'bg-green-400', 3 : 'bg-yellow-300', 4 : 'bg-amber-500', 2 : 'bg-lime-200', 5 : 'bg-red-500', 6 : 'bg-rose-400', 7 : 'bg-cyan-300', 8 : 'bg-sky-500', 10 : 'bg-purple-500', 9 : 'bg-indigo-300', 11 : 'bg-amber-800', 12 : 'bg-black', 13 : 'bg-slate-400', 14 : 'bg-slate-200', 15 : 'bg-white'};
 const namedict = {0:'Emerald', 1 : 'Green', 3 : 'Yellow', 4 : 'Amber', 2 : 'Lime', 5 : 'Red', 6 : 'Rose', 7 : 'Cyan', 8 : 'Sky', 10 : 'Purple', 9 : 'Indigo', 11 : 'Brown', 12 : 'Black', 13 : 'Dark Gray', 14 : 'Light Gray', 15 : 'White'};
 const regles = "Dessinez ce que vous voulez sur l'écran! Dans l'onglet color, choissisez une couleur avec laquelle dessiner,puis déplacez le joystick pour appliquer la couleur. Si vous avez décidé de faire du PixelArt, 'Apply' vous permet de placer les pixels un à un.";
 
-export default function Phone({grid,cursor,sendJsonMessage}) {
-
-
-
+export default function Phone({grid,cursor,sendJsonMessage,newPixel}) {
+  console.log(grid)
   const rows = [];
 for (let i=0;i<16;i++){
   rows.push(<Godet color={i} onClick={()=>setPixel(i)} key={i}/>)
@@ -43,6 +42,8 @@ for (let i=0;i<16;i++){
            }
       )
       };
+
+  
 
       //console.log('Received from WS component',cursor)
 
@@ -87,6 +88,9 @@ for (let i=0;i<16;i++){
   //       y:y
   //   }))
   // }
+
+  const windowSize = useRef([window.innerWidth, window.innerHeight]);
+  console.log(windowSize.current[0]);
   
     return (
       <>
@@ -142,9 +146,7 @@ for (let i=0;i<16;i++){
 
           <div className="bg-secondary h-screen">
             <div className="h-1/2 grid grid-cols-1 place-items-center">
-              <h1 className="text-3xl font-extrabold">
-                Canvas
-              </h1>
+              <PhoneCanvas grid={grid} newPixel={newPixel} squareSide={windowSize.current[0]/5} cursor={cursor} websocket={sendJsonMessage} color={pixel}/>
 
 
             </div>

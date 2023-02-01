@@ -16,7 +16,7 @@ export default function PhoneCanvas({ grid, newPixel, squareSide, cursor,websock
       ctx.fillStyle = colorList[10]
       ctx.font = "30px sans-serif"
       ctx.textAlign=  "center" 
-      ctx.fillText('',(x+0.5)*squareSide,(y+0.5)*squareSide)
+      ctx.fillText(int,(x+0.5)*squareSide,(y+0.5)*squareSide)
       ctx.restore()
     }
 
@@ -58,31 +58,27 @@ export default function PhoneCanvas({ grid, newPixel, squareSide, cursor,websock
     const canvasRef = usePixels(grid, draw_pixel, newPixel,cursor)
 
     function canvasOnClick(event){
-      console.log('click coordinate',event.clientX,event.clientY);
       let x=Math.trunc(event.clientX/squareSide)-2;
       let y=-(Math.trunc(event.clientY/squareSide)-2);
-      console.log('x,y',x,y);
+      //console.log('x,y',x,y);
       
-      websocket(
-        {
-          req : 'move',
-          x : x,
-          y : y
-        });
+      // websocket(
+      //   {
+      //     req : 'move',
+      //     x : x,
+      //     y : y
+      //   });
+      //  console.log('Moved');
 
-        
         websocket(
          {
             req : 'chgColor',
-            color : color
+            color : color,
+            x : x ,
+            y : y >= -2 ? y : -2  // fix simple à bug : rayon du click intersepte canvas alors que centre du click est en dehors.
          });
-      
-         websocket(
-          {
-            req : 'move',
-            x : -x,
-            y : -y
-          });
+
+
 
     }
 

@@ -11,7 +11,6 @@ const namedict = {0:'Emerald', 1 : 'Green', 3 : 'Yellow', 4 : 'Amber', 2 : 'Lime
 const regles = "Dessinez ce que vous voulez sur l'écran! Dans l'onglet color, choissisez une couleur avec laquelle dessiner,puis déplacez le joystick pour appliquer la couleur. Si vous avez décidé de faire du PixelArt, 'Apply' vous permet de placer les pixels un à un.";
 
 export default function Phone({grid,cursor,sendJsonMessage,newPixel}) {
-  console.log(grid)
   const rows = [];
 for (let i=0;i<16;i++){
   rows.push(<Godet color={i} onClick={()=>setPixel(i)} key={i}/>)
@@ -90,7 +89,6 @@ for (let i=0;i<16;i++){
   // }
 
   const windowSize = useRef([window.innerWidth, window.innerHeight]);
-  console.log(windowSize.current[0]);
   
     return (
       <>

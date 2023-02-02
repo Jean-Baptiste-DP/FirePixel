@@ -69,7 +69,6 @@ export default function PhoneCanvas({ grid, newPixel, squareSide, cursor,websock
 
       let x=Math.trunc(event.clientX/squareSide)-2;
       let y=-(Math.trunc(event.clientY/squareSide)-2);
-      console.log(x,y);
 
       if (long == true) {
         //console.log(' long click');
@@ -81,8 +80,8 @@ export default function PhoneCanvas({ grid, newPixel, squareSide, cursor,websock
          });
         setLong(false)
       }
-      else {//console.log('short click')
-    
+      else {
+        //console.log('short click')
         websocket(
          {
             req : 'chgColor',

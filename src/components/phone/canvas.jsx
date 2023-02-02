@@ -1,6 +1,8 @@
-import React from 'react';;
+import React from 'react';
 import usePixels from '../../hook/usePixelsPhone';
 import useCursor from '../../hook/useCursorPhone';
+import useLongPress from "../../hook/useLongPress";
+import {useState} from 'react'
 
 const colorList = ['#10B981', '#4ADE80', '#D9F99D', '#FDE047', '#F59E0B', '#EF4444', '#FB7185', '#67E8F9', '#0EA5E9', '#A8B4FC', '#A855F7', '#92400E', '#000000', '#94A3B8', '#E2E8F0', '#FFFFFF'];
 
@@ -9,6 +11,12 @@ const colorList = ['#10B981', '#4ADE80', '#D9F99D', '#FDE047', '#F59E0B', '#EF44
 
 
 export default function PhoneCanvas({ grid, newPixel, squareSide, cursor,websocket, color}) {
+
+  const [long,setLong] = useState(false);
+
+  const onLongPress = useLongPress();
+
+
   
     function draw_pixel(ctx, x, y, color,int){
       int='' //remove to show number grid
@@ -53,21 +61,28 @@ export default function PhoneCanvas({ grid, newPixel, squareSide, cursor,websock
 
     }
 
-
     const height = 5*squareSide;
     const width = 5*squareSide;
     const canvasRef = usePixels(grid, draw_pixel, newPixel,cursor)
 
     function canvasOnClick(event){
+
       let x=Math.trunc(event.clientX/squareSide)-2;
       let y=-(Math.trunc(event.clientY/squareSide)-2);
-      // websocket(
-      //   {
-      //     req : 'move',
-      //     x : x,
-      //     y : y
-      //   });
+      console.log(x,y);
 
+      if (long == true) {
+        //console.log(' long click');
+        websocket(
+          {
+           req : 'move',
+            x : x,
+            y : y
+         });
+        setLong(false)
+      }
+      else {//console.log('short click')
+    
         websocket(
          {
             req : 'chgColor',
@@ -76,11 +91,11 @@ export default function PhoneCanvas({ grid, newPixel, squareSide, cursor,websock
             y : y >= -2 ? y : -2  // fix simple à bug : rayon du click intersepte canvas alors que centre du click est en dehors.
          });
 
-
-
-    }
+        }
+      
+  }
 
     useCursor(canvasRef, draw_cursor, cursor, newPixel)
     
-    return <canvas ref={canvasRef} height={height} width={width} onClick={canvasOnClick}/>
+    return <canvas ref={canvasRef} height={height} width={width} onClick={canvasOnClick} {...onLongPress(()=>setLong(true))}/>
 }

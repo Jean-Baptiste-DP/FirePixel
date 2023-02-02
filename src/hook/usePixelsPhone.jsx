@@ -27,12 +27,9 @@ export default function usePixels(grid, draw, newPixel, cursor){
       useEffect(()=> {
         let a=newPixel.x-cursor.x
         let b=newPixel.y-cursor.y
-        console.log(Math.sqrt((a*a)+(b*b)));
-
-        
+   
         if (Math.sqrt(a*a+b*b)<3){
           drawNeighbours()
-          console.log('nei chg detected');
         }
       }      
       ,[newPixel]);

@@ -33,7 +33,9 @@ export default function HomeJoystick({websocket,color,pixelArt}) {
         websocket(
                 {
                   req : 'chgColor',
-                  color : color
+                  color : color,
+                  x:0,
+                  y:0
                 });
       }
     }

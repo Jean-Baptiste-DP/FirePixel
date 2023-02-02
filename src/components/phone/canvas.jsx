@@ -11,6 +11,7 @@ const colorList = ['#10B981', '#4ADE80', '#D9F99D', '#FDE047', '#F59E0B', '#EF44
 export default function PhoneCanvas({ grid, newPixel, squareSide, cursor,websocket, color}) {
   
     function draw_pixel(ctx, x, y, color,int){
+      int='' //remove to show number grid
       ctx.fillStyle = colorList[color];
       ctx.fillRect(x*squareSide,y*squareSide,squareSide,squareSide)
       ctx.fillStyle = colorList[10]
@@ -60,15 +61,12 @@ export default function PhoneCanvas({ grid, newPixel, squareSide, cursor,websock
     function canvasOnClick(event){
       let x=Math.trunc(event.clientX/squareSide)-2;
       let y=-(Math.trunc(event.clientY/squareSide)-2);
-      //console.log('x,y',x,y);
-      
       // websocket(
       //   {
       //     req : 'move',
       //     x : x,
       //     y : y
       //   });
-      //  console.log('Moved');
 
         websocket(
          {

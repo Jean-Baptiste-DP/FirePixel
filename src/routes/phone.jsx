@@ -37,6 +37,8 @@ for (let i=0;i<16;i++){
           { 
             req : 'chgColor',
             color : pixel,
+            x:0,
+            y:0
 
            }
       )

@@ -1,28 +1,35 @@
+import { useRef } from "react";
 import BetterJoystick from "./betterJoystick";
 
 export default function HomeJoystick({websocket,color,pixelArt}) {
 
-  var x = 0;
-  var y = 0;
+  const x = useRef(0.5);
+  const y = useRef(0.5);
+  const baseThrottle = 50;
+  const frontThrottle = 20;
+  const factor = frontThrottle / baseThrottle;
 
   function handleMove(event) {
     
-    x+= event.x;
-    y+= event.y;
+    x.current+= factor*event.x;
+    y.current+= factor*event.y;
 
-    if(Math.abs(x)>=1 || Math.abs(y)>=1){
+    if(Math.abs(x.current)>=1 || Math.abs(y.current)>=1){
+
+      let x_send = Math.trunc(x.current)
+      let y_send = Math.trunc(y.current)
 
       websocket(
             {
               req : 'move',
-              x : Math.trunc(x),
-              y : Math.trunc(y)
+              x : x_send,
+              y : y_send
             });
 
-      x= 0
-      y= 0
+      x.current = x.current - 2*x_send
+      y.current = y.current - 2*y_send
 
-      if (pixelArt == true) {
+      if (pixelArt == false) {
         websocket(
                 {
                   req : 'chgColor',
@@ -35,7 +42,7 @@ export default function HomeJoystick({websocket,color,pixelArt}) {
 
   return (
     <BetterJoystick baseImage="joystick_smaller.png" 
-              throttle={50}
+              throttle={frontThrottle}
               size={200} 
               stickSize={50} 
               baseColor="white" 

@@ -1,13 +1,14 @@
 import { ExclamationTriangleIcon } from "@heroicons/react/20/solid";
 import HomeJoystick from "../components/phone/homeJoystick";
 import Switch from '../components/phone/switch';
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef } from "react";
+import PhoneCanvas from '../components/phone/canvas';
 import Scrollbar from "../components/phone/scrollbar";
 
 const regles =
     "Dessinez ce que vous voulez sur l'écran! Dans l'onglet color, choissisez une couleur avec laquelle dessiner,puis déplacez le joystick pour appliquer la couleur. Si vous avez décidé de faire du PixelArt, 'Apply' vous permet de placer les pixels un à un.";
 
-export default function Phone({ grid, cursor, sendJsonMessage }) {
+export default function Phone({ grid, cursor, sendJsonMessage, newPixel }) {
  
 
     const [helpState, setHelpState] = useState({
@@ -15,6 +16,7 @@ export default function Phone({ grid, cursor, sendJsonMessage }) {
         State: "off",
     });
 
+    const windowSize = useRef([window.innerWidth, window.innerHeight]);
     const [pixel, setPixel] = useState(0);
     const [pixelArt, setPixelArt] = useState(false);
 

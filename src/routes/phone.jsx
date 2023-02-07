@@ -18,7 +18,7 @@ export default function Phone({ grid, cursor, sendJsonMessage, newPixel }) {
 
     const windowSize = useRef([window.innerWidth, window.innerHeight]);
     const [pixel, setPixel] = useState(0);
-    const [pixelArt, setPixelArt] = useState(false);
+    const [continuous, setContinuous] = useState(false);
 
     //   function onReceivedSocket(message){
     //     let playerModif = JSON.parse(message.data)
@@ -78,20 +78,6 @@ export default function Phone({ grid, cursor, sendJsonMessage, newPixel }) {
             setPixelArt(false);
         }
     }
-
-
-    // Websockets
-    // let socket = new WebSocket('ws://localhost:10406');
-    // socket.send(JSON.stringify({
-    //     type: "phone"
-    // }));
-
-    // function sendJoystick(x,y){
-    //   socket.send(JSON.stringify({
-    //       x:x,
-    //       y:y
-    //   }))
-    // }
 
     return (
         <>
@@ -217,17 +203,17 @@ export default function Phone({ grid, cursor, sendJsonMessage, newPixel }) {
                 </div>
                 <div className=" flex-col -outline -outline-red-500">
                     <div className="flex my-2 bg-[#686060] rounded-2xl">
-                        <div className="absolute pointer-events-none bg-gradient-to-r from-current h-16 w-7 rounded-l-2xl   "/>
+                        <div className="absolute pointer-events-none bg-gradient-to-l from-transparent to-gray-800 h-16 w-7 rounded-l-2xl "/>
                         <Scrollbar pixel={pixel} click={setPixel}></Scrollbar>
-                        <div className="absolute right-0 pointer-events-none bg-gradient-to-l from-current h-16 w-7 rounded-r-2xl "/>
+                        <div className="absolute right-0 pointer-events-none bg-gradient-to-r from-transparent to-gray-800 h-16 w-7 rounded-r-2xl "/>
                     </div>
                 </div>
                 <div className=" bg-[#686060] w-full flex flex-col flex-grow rounded-t-2xl justify-self-center place-self-center -outline outline-emerald-500 justify-evenly place-items-center">
                     <div className="">
-                        <HomeJoystick websocket={sendJsonMessage} color= {pixel} pixelArt={pixelArt}></HomeJoystick>
+                        <HomeJoystick websocket={sendJsonMessage} color= {pixel} pixelArt={continuous}></HomeJoystick>
                     </div>
                     <div className="p-2">
-                        <Switch />
+                        <Switch state={continuous} set={setContinuous} />
                     </div>
                     
                 </div>

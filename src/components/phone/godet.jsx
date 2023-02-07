@@ -17,7 +17,7 @@ const colordict = {
     15: "bg-white",
 };
 
-const highlight = 'border-4 border-slate-100 shadow-lg shadow-black'
+const highlight = 'border-4 border-slate-100 shadow-lg shadow-gray-800'
 
 export default function Godet({ onClick, color, selected }) {
 

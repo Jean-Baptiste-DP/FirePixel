@@ -29,7 +29,7 @@ export default function HomeJoystick({websocket,color,pixelArt}) {
       x.current = x.current - 2*x_send
       y.current = y.current - 2*y_send
 
-      if (pixelArt == false) {
+      if (pixelArt == true) {
         websocket(
                 {
                   req : 'chgColor',

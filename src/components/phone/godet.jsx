@@ -17,8 +17,11 @@ const colordict = {
     15: "bg-white",
 };
 
-export default function Godet({ onClick, color }) {
+const highlight = 'border-4 border-slate-100 shadow-lg shadow-black'
+
+export default function Godet({ onClick, color, selected }) {
+
     return (
-        <button className={`${colordict[color]} w-10 aspect-square rounded-lg`} onClick={onClick} />
+        <button className={`${colordict[color]} w-10 aspect-square rounded-lg transition duration-100  ${selected ? highlight : ''}`} onClick={onClick} />
     );
 }

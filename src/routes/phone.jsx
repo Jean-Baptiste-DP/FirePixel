@@ -1,55 +1,14 @@
 import { ExclamationTriangleIcon } from "@heroicons/react/20/solid";
 import HomeJoystick from "../components/phone/homeJoystick";
-import Button from "../components/phone/button";
-import Godet from "../components/phone/godet";
 import Switch from '../components/phone/switch';
 import React, { useState, useEffect } from "react";
 import Scrollbar from "../components/phone/scrollbar";
 
-const colordict = {
-    0: "bg-emerald-500",
-    1: "bg-green-400",
-    3: "bg-yellow-300",
-    4: "bg-amber-500",
-    2: "bg-lime-200",
-    5: "bg-red-500",
-    6: "bg-rose-400",
-    7: "bg-cyan-300",
-    8: "bg-sky-500",
-    10: "bg-purple-500",
-    9: "bg-indigo-300",
-    11: "bg-amber-800",
-    12: "bg-black",
-    13: "bg-slate-400",
-    14: "bg-slate-200",
-    15: "bg-white",
-};
-const namedict = {
-    0: "Emerald",
-    1: "Green",
-    3: "Yellow",
-    4: "Amber",
-    2: "Lime",
-    5: "Red",
-    6: "Rose",
-    7: "Cyan",
-    8: "Sky",
-    10: "Purple",
-    9: "Indigo",
-    11: "Brown",
-    12: "Black",
-    13: "Dark Gray",
-    14: "Light Gray",
-    15: "White",
-};
 const regles =
     "Dessinez ce que vous voulez sur l'écran! Dans l'onglet color, choissisez une couleur avec laquelle dessiner,puis déplacez le joystick pour appliquer la couleur. Si vous avez décidé de faire du PixelArt, 'Apply' vous permet de placer les pixels un à un.";
 
 export default function Phone({ grid, cursor, sendJsonMessage }) {
-    const rows = [];
-    for (let i = 0; i < 16; i++) {
-        rows.push(<Godet color={i} onClick={() => setPixel(i)} key={i} />);
-    }
+ 
 
     const [helpState, setHelpState] = useState({
         Display: "-z-10 opacity-0",
@@ -248,26 +207,28 @@ export default function Phone({ grid, cursor, sendJsonMessage }) {
                         />
                     </div>
                 </div> */}
-
-                <div className="w-full aspect-square bg-gray-200 grid place-items-center">
+            <div className="flex flex-col h-screen  bg-[#454141] justify-start">
+                <div className="w-full aspect-square bg-gray-200">
                     Canvas
                 </div>
-                
-                <div className="flex">
-                    <div className="absolute pointer-events-none bg-gradient-to-r from-current h-16 w-8  "/>
-                    <Scrollbar></Scrollbar>
-                    <div className="absolute right-0 pointer-events-none bg-gradient-to-l from-current h-16 w-8"/>
-                </div>
-                <div>
-                    <div className="bg-[#686060] rounded-t">
-                        <div className="">
-                            Joystick
-                        </div>
-                        <div className="flex justify-center p-2">
-                            <Switch />
-                        </div>
+                <div className=" flex-col -outline -outline-red-500">
+                    <div className="flex my-2 bg-[#686060] rounded-2xl">
+                        <div className="absolute pointer-events-none bg-gradient-to-r from-current h-16 w-7 rounded-l-2xl   "/>
+                        <Scrollbar pixel={pixel} click={setPixel}></Scrollbar>
+                        <div className="absolute right-0 pointer-events-none bg-gradient-to-l from-current h-16 w-7 rounded-r-2xl "/>
                     </div>
                 </div>
+                <div className=" bg-[#686060] w-full flex flex-col flex-grow rounded-t-2xl justify-self-center place-self-center -outline outline-emerald-500 justify-evenly place-items-center">
+                    <div className="">
+                        <HomeJoystick websocket={sendJsonMessage} color= {pixel} pixelArt={pixelArt}></HomeJoystick>
+                    </div>
+                    <div className="p-2">
+                        <Switch />
+                    </div>
+                    
+                </div>
+            </div>
+
             </div>
         </>
     );

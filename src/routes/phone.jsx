@@ -4,6 +4,7 @@ import Button from "../components/phone/button";
 import Godet from "../components/phone/godet";
 import Switch from '../components/phone/switch';
 import React, { useState, useEffect } from "react";
+import Scrollbar from "../components/phone/scrollbar";
 
 const colordict = {
     0: "bg-emerald-500",
@@ -251,14 +252,13 @@ export default function Phone({ grid, cursor, sendJsonMessage }) {
                 <div className="w-full aspect-square bg-gray-200 grid place-items-center">
                     Canvas
                 </div>
-
-                <div className="w-full flex flex-col">
-                    <div className="flex color-palette overflow-x-auto bg-[#686060] rounded-lg mb-1">
-                        <div className="flex flex-nowrap gap-2 p-3">
-                            {rows}
-                        </div>
-                    </div>
-
+                
+                <div className="flex">
+                    <div className="absolute pointer-events-none bg-gradient-to-r from-current h-16 w-8  "/>
+                    <Scrollbar></Scrollbar>
+                    <div className="absolute right-0 pointer-events-none bg-gradient-to-l from-current h-16 w-8"/>
+                </div>
+                <div>
                     <div className="bg-[#686060] rounded-t">
                         <div className="">
                             Joystick

@@ -13,7 +13,7 @@ module.exports = {
       },
       gridTemplateColumns : {
         '100': 'repeat(100, minmax(0, 1fr))'
-      }
+      },
     },
   },
   plugins: [],

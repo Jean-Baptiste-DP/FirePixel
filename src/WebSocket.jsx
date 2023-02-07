@@ -59,9 +59,6 @@ export default function WebSocket({Component,type}){
 
     function onReceivedSocket(message){
         let data = JSON.parse(message.data)
-
-        // console.log("Socket received",data)
-        
         if(data.req && data.req=="move" && data.x!=undefined && data.y!= undefined && data.id!=undefined){
             if(type=="screen"){
                 let pseudo_cursor=[...cursor]

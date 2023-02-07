@@ -34,6 +34,7 @@ export default function Phone({ grid, cursor, sendJsonMessage }) {
         });
     }
 
+
     //console.log('Received from WS component',cursor)
 
     function helpOnClick() {
@@ -75,6 +76,7 @@ export default function Phone({ grid, cursor, sendJsonMessage }) {
             setPixelArt(false);
         }
     }
+
 
     // Websockets
     // let socket = new WebSocket('ws://localhost:10406');
@@ -209,7 +211,7 @@ export default function Phone({ grid, cursor, sendJsonMessage }) {
                 </div> */}
             <div className="flex flex-col h-screen  bg-[#454141] justify-start">
                 <div className="w-full aspect-square bg-gray-200">
-                    Canvas
+                    <PhoneCanvas grid={grid} newPixel={newPixel} squareSide={windowSize.current[0]/5} cursor={cursor} websocket={sendJsonMessage} color={pixel}/>
                 </div>
                 <div className=" flex-col -outline -outline-red-500">
                     <div className="flex my-2 bg-[#686060] rounded-2xl">

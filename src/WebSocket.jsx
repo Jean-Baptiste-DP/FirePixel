@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import {useEffect} from 'react';
+import {useEffect, useRef} from 'react';
 import useWebSocket from 'react-use-websocket';
 
 export default function WebSocket({Component,type}){
@@ -48,6 +48,30 @@ export default function WebSocket({Component,type}){
 
     // --- Websockets ---
 
+    // --- Screen update messages routine ---
+    const [screenId, setScreenId] = useState(-1)
+
+    //useEffect(()=>{ let updateRoutine = setupUpdateRoutine(screenId) ;return () => clearInterval(updateRoutine) },[screenId]);
+
+    function setupUpdateRoutine(id){
+        if (id != -1) {
+            console.log("Update routine setup")
+            return setInterval(
+                ()=>{
+                    sendJsonMessage(
+                        {
+                            req : "update",
+                            id : id
+                        }
+                    )
+                    console.log("Update message sent", "Screen id : " + screenId,)
+                },2000
+            )
+        }
+    };
+
+    // --- Connection ---
+
     useEffect(() => {
 
       sendJsonMessage({
@@ -56,6 +80,7 @@ export default function WebSocket({Component,type}){
       })
   
     },[]);
+
 
     function onReceivedSocket(message){
         let data = JSON.parse(message.data)
@@ -72,6 +97,8 @@ export default function WebSocket({Component,type}){
             pseudo_grid[data.y][data.x]=data.color
             changeGrid(pseudo_grid)
             chglastPixel({x:data.x, y:data.y, color:data.color})
+        }else if (data.req && data.req == "connection") {
+            setScreenId(data.id)                  
         }
     }
 

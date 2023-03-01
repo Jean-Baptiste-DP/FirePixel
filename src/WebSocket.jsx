@@ -51,7 +51,7 @@ export default function WebSocket({Component,type}){
     // --- Screen update messages routine ---
     const [screenId, setScreenId] = useState(-1)
 
-    //useEffect(()=>{ let updateRoutine = setupUpdateRoutine(screenId) ;return () => clearInterval(updateRoutine) },[screenId]);
+    useEffect(()=>{ let updateRoutine = setupUpdateRoutine(screenId) ;return () => clearInterval(updateRoutine) },[screenId]);
 
     function setupUpdateRoutine(id){
         if (id != -1) {

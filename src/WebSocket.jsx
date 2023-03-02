@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import {useEffect, useRef} from 'react';
+import {useEffect} from 'react';
 import useWebSocket from 'react-use-websocket';
+import { useLocation } from 'react-router-dom'
+
 
 export default function WebSocket({Component,type}){
     const wsUrl = "ws://localhost:10406"
@@ -65,20 +67,26 @@ export default function WebSocket({Component,type}){
                         }
                     )
                     console.log("Update message sent", "Screen id : " + screenId,)
-                },2000
+                },300000
             )
         }
     };
 
     // --- Connection ---
+    const location = useLocation();
+
 
     useEffect(() => {
 
+        const token = location.state ? location.state.token : "defautPassword";
+
       sendJsonMessage({
         req : "connection",
-        type: type
+        type: type,
+        height : 100,
+        width : 100,
+        token : token
       })
-  
     },[]);
 
 

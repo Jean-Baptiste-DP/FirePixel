@@ -28,7 +28,7 @@ export default function usePixels(grid, draw, newPixel, cursor){
         let a=newPixel.x-cursor.x
         let b=newPixel.y-cursor.y
    
-        if (Math.sqrt(a*a+b*b)<3){
+        if (newPixel.color>=0 && Math.sqrt(a*a+b*b)<3){
           drawNeighbours()
         }
       }      

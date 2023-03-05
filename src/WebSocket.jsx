@@ -2,10 +2,11 @@ import { useState } from 'react';
 import {useEffect} from 'react';
 import useWebSocket from 'react-use-websocket';
 import { useLocation } from 'react-router-dom'
-
+import { getGrid } from './api';
+import { API_URL } from '../env';
 
 export default function WebSocket({Component,type}){
-    const wsUrl = "ws://localhost:10406"
+    const wsUrl = "ws://"+API_URL
     const { sendJsonMessage } = useWebSocket(wsUrl,{onMessage:onReceivedSocket});
 
     // --- Variables ---
@@ -16,17 +17,25 @@ export default function WebSocket({Component,type}){
     const gridWidth = 100
     const nbPlayerMax = 16 // 16 est le nombre de personnes pouvant jouer en simultané, doit être changé si besoin
 
-    var pseudo_grid = new Array(gridHeight);
 
-    for (var i = 0; i < gridHeight; i++) {
-        pseudo_grid[i] = new Array(gridWidth);
-        for(var j=0; j< gridWidth; j++){
-            pseudo_grid[i][j]=15;
-        }
-    }
+    // var pseudo_grid = new Array(gridHeight);
 
-    const [grid, changeGrid] = useState(pseudo_grid)
+    // for (var i = 0; i < gridHeight; i++) {
+    //     pseudo_grid[i] = new Array(gridWidth);
+    //     for(var j=0; j< gridWidth; j++){
+    //         pseudo_grid[i][j]=15;
+    //     }
+    // }
 
+    // const [grid, changeGrid] = useState(pseudo_grid)
+
+    // load grid from back
+    
+    const [grid, changeGrid] = useState([])
+    
+    useEffect(()=>{
+        getGrid().then((response)=>changeGrid(response))
+    }, [])
 
     // Cursor
 
@@ -46,7 +55,7 @@ export default function WebSocket({Component,type}){
 
     //Last changed pixel
 
-    const [lastChangedPixel, chglastPixel] = useState({x:0, y:0, color: grid[0][0]})
+    const [lastChangedPixel, chglastPixel] = useState({x:0, y:0, color: -1})
 
     // --- Websockets ---
 
@@ -110,7 +119,14 @@ export default function WebSocket({Component,type}){
         }
     }
 
-    return(
-        <Component grid={grid} cursor={cursor} sendJsonMessage={sendJsonMessage} newPixel={lastChangedPixel}/>
-    )
+    if(grid.length<gridHeight){
+        return (
+            <p>Loading ...</p>
+        )
+    }else{
+        return(
+            <Component grid={grid} cursor={cursor} sendJsonMessage={sendJsonMessage} newPixel={lastChangedPixel}/>
+        )
+    }
+    
 }

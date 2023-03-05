@@ -19,10 +19,13 @@ export default function usePixels(grid, draw, newPixel){
     }, [])
 
     useEffect(()=> {
+      if(newPixel.color>=0){
         const canvas = canvasRef.current
         const context = canvas.getContext('2d')
 
         draw(context, newPixel.x, height-1-newPixel.y, newPixel.color)
+      }
+        
     }, [newPixel])
 
     return canvasRef

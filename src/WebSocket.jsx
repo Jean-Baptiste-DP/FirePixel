@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom'
 import { getGrid } from './api';
 import { API_URL } from '../env';
 
-export default function WebSocket({Component,type}){
+export default function WebSocket({Component,type, height, width}){
     const wsUrl = "ws://"+API_URL
     const { sendJsonMessage } = useWebSocket(wsUrl,{onMessage:onReceivedSocket});
 
@@ -13,10 +13,12 @@ export default function WebSocket({Component,type}){
 
     //Grid
 
-    const gridHeight = 100
-    const gridWidth = 100
+    let gridHeight = height;
+    let gridWidth = width;
+    // let gridHeight = 100;
+    // let gridWidth = 100;
     const nbPlayerMax = 16 // 16 est le nombre de personnes pouvant jouer en simultané, doit être changé si besoin
-
+    const [grid, changeGrid] = useState([])
 
     // var pseudo_grid = new Array(gridHeight);
 
@@ -31,11 +33,6 @@ export default function WebSocket({Component,type}){
 
     // load grid from back
     
-    const [grid, changeGrid] = useState([])
-    
-    useEffect(()=>{
-        getGrid().then((response)=>changeGrid(response))
-    }, [])
 
     // Cursor
 
@@ -75,7 +72,7 @@ export default function WebSocket({Component,type}){
                             id : id
                         }
                     )
-                    console.log("Update message sent", "Screen id : " + screenId,)
+                    console.log("Update message sent", "Screen id : " + screenId)
                 },300000
             )
         }
@@ -92,8 +89,8 @@ export default function WebSocket({Component,type}){
       sendJsonMessage({
         req : "connection",
         type: type,
-        height : gridWidth,
-        width : gridHeight,
+        height : gridHeight,
+        width : gridWidth,
         token : token
       })
     },[]);
@@ -114,12 +111,18 @@ export default function WebSocket({Component,type}){
             pseudo_grid[data.y][data.x]=data.color
             changeGrid(pseudo_grid)
             chglastPixel({x:data.x, y:data.y, color:data.color})
-        }else if (data.req && data.req == "connection") {
-            setScreenId(data.id)                  
+        }else if (data.req && data.req == "connection" && type=="screen") {
+            console.log("Get connection response")
+            setScreenId(data.id)
+            getGrid().then((response)=>changeGrid(response))
+        }else if(data?.req == "connection"){
+            getGrid().then((response)=>changeGrid(response))
+        }else{
+            console.log(data)
         }
     }
 
-    if(grid.length<gridHeight){
+    if(grid.length==0){
         return (
             <p>Loading ...</p>
         )

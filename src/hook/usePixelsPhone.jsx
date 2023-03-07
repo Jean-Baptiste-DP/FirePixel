@@ -4,6 +4,8 @@ import { useRef, useEffect } from "react";
 
 export default function usePixels(grid, draw, newPixel, cursor){
     const canvasRef = useRef(null)
+    const height = grid.length;
+    const width = grid[0].length;
     
     function drawNeighbours(){
       const canvas = canvasRef.current
@@ -12,8 +14,10 @@ export default function usePixels(grid, draw, newPixel, cursor){
       let int = 0;
       for(let i=-2; i<=2; i++){
         for(let j=-2; j<=2; j++){
-            draw(context, i+2, j+2, grid[cursor.y-j >= 0 && cursor.y-j<100 ? cursor.y-j: 0][cursor.x+i >= 0 ? cursor.x+i : 0],int)
-            int++
+          if (cursor.y-j >= 0 && cursor.y-j <height && cursor.x+i >= 0 && cursor.x+i < width)
+            {draw(context, i+2, j+2, grid[cursor.y-j][cursor.x+i],int)
+            int++}
+          else {draw(context,i+2,j+2,12,int);int++}
         }}}
 
         // mise à jour canvas quand déplacement

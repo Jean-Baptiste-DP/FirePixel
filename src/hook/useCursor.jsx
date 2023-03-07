@@ -9,10 +9,10 @@ export default function useCursor(grid, draw, ref, cursors, draw_cursor){
     const width = grid[0].length;
 
     function getGrid(x, y){
-            if(x>=0 && x<width && y>=0 && y<height){
+            if(x>=0 && x<height && y>=0 && y<width){
                 return grid[x][y]
             }
-            return 0
+            return 12
         }
 
     function clearCursor(ctx, x,y){
@@ -56,7 +56,7 @@ export default function useCursor(grid, draw, ref, cursors, draw_cursor){
             if(cursors[i].x!=old_cursors.current[i].x || cursors[i].y!=old_cursors.current[i].y){
                 clearCursor(context, old_cursors.current[i].x, old_cursors.current[i].y)
                 draw_cursor(context, cursors[i].y, height-1-cursors[i].x, cursors[i].id)
-                draw(context, cursors[i].y, height-1-cursors[i].x < 100 ? height-1-cursors[i].x : 98 , grid[cursors[i].x][cursors[i].y])
+                draw(context, cursors[i].y, height-1-cursors[i].x < height ? height-1-cursors[i].x : height , grid[cursors[i].x][cursors[i].y])
             }
             else if(cursors[i].used && !old_cursors.current[i].used){
                 draw_cursor(context, cursors[i].y, height-1-cursors[i].x, cursors[i].id)

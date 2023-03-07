@@ -24,7 +24,7 @@ export default function Phone({ grid, cursor, sendJsonMessage, newPixel }) {
     const steps =  [
         {
             element: "#canvas",
-            intro: `Tu as le curseur ${cursor.id != -1 ? namedict[cursor.id] : "noir"}! Utilise la grille pour dessiner sur l'écran. Clique pour colorier. Clique long pour te déplacer`,
+            intro: `Tu as le curseur ${cursor.id != -1 ? namedict[cursor.id] : "noir"} ! Utilise la grille pour dessiner sur l'écran. Clique pour colorier. Clique long pour te déplacer`,
             position: 'right',
           },
           {
@@ -39,7 +39,7 @@ export default function Phone({ grid, cursor, sendJsonMessage, newPixel }) {
           },
         {
           element: "#switch",
-          intro: "Ce boutton te permet te déplacer en laissant une trace ou non",
+          intro: "Tu peux choisir : Te déplacer ou te déplacer en déssinant",
           position: 'top',
         },
       ]

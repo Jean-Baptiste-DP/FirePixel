@@ -13,12 +13,12 @@ export default function WebSocket({Component,type, height, width}){
 
     //Grid
 
-    // let gridHeight = height;
-    // let gridWidth = width;
-    let gridHeight = 100;
-    let gridWidth = 100;
+    let gridHeight = height;
+    let gridWidth = width;
+    // let gridHeight = 100;
+    // let gridWidth = 100;
     const nbPlayerMax = 16 // 16 est le nombre de personnes pouvant jouer en simultané, doit être changé si besoin
-
+    const [grid, changeGrid] = useState([])
 
     // var pseudo_grid = new Array(gridHeight);
 
@@ -33,11 +33,6 @@ export default function WebSocket({Component,type, height, width}){
 
     // load grid from back
     
-    const [grid, changeGrid] = useState([])
-    
-    useEffect(()=>{
-        getGrid().then((response)=>changeGrid(response))
-    }, [])
 
     // Cursor
 
@@ -77,7 +72,7 @@ export default function WebSocket({Component,type, height, width}){
                             id : id
                         }
                     )
-                    console.log("Update message sent", "Screen id : " + screenId,)
+                    console.log("Update message sent", "Screen id : " + screenId)
                 },300000
             )
         }
@@ -116,12 +111,18 @@ export default function WebSocket({Component,type, height, width}){
             pseudo_grid[data.y][data.x]=data.color
             changeGrid(pseudo_grid)
             chglastPixel({x:data.x, y:data.y, color:data.color})
-        }else if (data.req && data.req == "connection") {
-            setScreenId(data.id)                  
+        }else if (data.req && data.req == "connection" && type=="screen") {
+            console.log("Get connection response")
+            setScreenId(data.id)
+            getGrid().then((response)=>changeGrid(response))
+        }else if(data?.req == "connection"){
+            getGrid().then((response)=>changeGrid(response))
+        }else{
+            console.log(data)
         }
     }
 
-    if(grid.length<gridHeight){
+    if(grid.length==0){
         return (
             <p>Loading ...</p>
         )

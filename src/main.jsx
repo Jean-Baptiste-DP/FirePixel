@@ -15,6 +15,7 @@ import Error from './routes/error'
 import Screen from './routes/screen'
 import Phone from './routes/phone'
 import Home from './routes/home'
+import Wrapper from './Wrapper'
 
 const router = createHashRouter([
   {
@@ -28,11 +29,11 @@ const router = createHashRouter([
       },
       {
         path: "screen",
-        element: <WebSocket Component={Screen} type="screen"/>,
+        element: <Wrapper />,
       },
       {
         path: "phone",
-        element: <WebSocket Component={Phone} type="phone"/>
+        element: <WebSocket height={100} width={100} Component={Phone} type="phone"/>
       }
     ]
   },

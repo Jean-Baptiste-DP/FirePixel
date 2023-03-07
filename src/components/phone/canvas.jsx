@@ -22,7 +22,7 @@ export default function PhoneCanvas({ grid, newPixel, squareSide, cursor,websock
       int='' //remove to show number grid
       ctx.fillStyle = colorList[color];
       ctx.fillRect(x*squareSide,y*squareSide,squareSide,squareSide)
-      ctx.fillStyle = colorList[10]
+      ctx.fillStyle = colorList[12]
       ctx.font = "30px sans-serif"
       ctx.textAlign=  "center" 
       ctx.fillText(int,(x+0.5)*squareSide,(y+0.5)*squareSide)
@@ -72,6 +72,7 @@ export default function PhoneCanvas({ grid, newPixel, squareSide, cursor,websock
 
       if (long == true) {
         //console.log(' long click');
+        console.log(x,y)
         websocket(
           {
            req : 'move',

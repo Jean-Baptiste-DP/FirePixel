@@ -92,8 +92,8 @@ export default function WebSocket({Component,type}){
       sendJsonMessage({
         req : "connection",
         type: type,
-        height : 100,
-        width : 100,
+        height : gridWidth,
+        width : gridHeight,
         token : token
       })
     },[]);

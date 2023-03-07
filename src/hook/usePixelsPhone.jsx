@@ -12,7 +12,7 @@ export default function usePixels(grid, draw, newPixel, cursor){
       let int = 0;
       for(let i=-2; i<=2; i++){
         for(let j=-2; j<=2; j++){
-            draw(context, i+2, j+2, grid[cursor.y-j >= 0 ? cursor.y-j : 0][cursor.x+i >= 0 ? cursor.x+i : 0],int)
+            draw(context, i+2, j+2, grid[cursor.y-j >= 0 && cursor.y-j<100 ? cursor.y-j: 0][cursor.x+i >= 0 ? cursor.x+i : 0],int)
             int++
         }}}
 

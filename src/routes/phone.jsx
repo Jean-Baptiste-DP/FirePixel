@@ -29,7 +29,7 @@ export default function Phone({ grid, cursor, sendJsonMessage, newPixel }) {
           },
           {
             element: "#palette",
-            intro: "La palette te permet de choisir avec quelle couleur tu vas déssiner sur l'écran.",
+            intro: "La palette te permet de choisir avec quelle couleur tu vas dessiner sur l'écran.",
             position: 'top',
           },
           {
@@ -39,7 +39,7 @@ export default function Phone({ grid, cursor, sendJsonMessage, newPixel }) {
           },
         {
           element: "#switch",
-          intro: "Ce boutton te permet choisir :te déplacer en laissant une trace ou non",
+          intro: "Ce boutton te permet te déplacer en laissant une trace ou non",
           position: 'top',
         },
       ]
@@ -96,7 +96,7 @@ export default function Phone({ grid, cursor, sendJsonMessage, newPixel }) {
                 </div>
                 <div className=" bg-[#686060] w-full flex flex-col flex-grow rounded-t-2xl justify-self-center place-self-center -outline outline-emerald-500 place-items-center">
                 <button onClick={()=>setEnabled(true)} className=" absolute place-self-start justify-self-start text-white p-2">
-                    <img src="/info-Button.svg" lt="Help" width="25" height="25"/>
+                    <img src="/Info-Button.svg" alt="Help" width="25" height="25"/>
                 </button>
                     <div id="joystick">
                         <HomeJoystick websocket={sendJsonMessage} color= {pixel} pixelArt={continuous}></HomeJoystick>

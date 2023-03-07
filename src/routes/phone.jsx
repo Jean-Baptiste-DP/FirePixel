@@ -1,4 +1,4 @@
-import { ExclamationTriangleIcon } from "@heroicons/react/20/solid";
+import { ExclamationTriangleIcon, InformationCircleIcon } from "@heroicons/react/20/solid";
 import HomeJoystick from "../components/phone/homeJoystick";
 import Switch from '../components/phone/switch';
 import React, { useState, useRef } from "react";
@@ -94,9 +94,10 @@ export default function Phone({ grid, cursor, sendJsonMessage, newPixel }) {
                         <div className="absolute right-0 pointer-events-none bg-gradient-to-r from-transparent to-gray-800 h-16 w-7 rounded-r-2xl "/>
                     </div>
                 </div>
-                <div className=" bg-[#686060] w-full flex flex-col flex-grow rounded-t-2xl justify-self-center place-self-center -outline outline-emerald-500 place-items-center">
-                <button onClick={()=>setEnabled(true)} className=" absolute place-self-start justify-self-start text-white p-2">
-                    <img src="/Info-Button.svg" alt="Help" width="25" height="25"/>
+                <div className="relative bg-[#686060] w-full flex flex-col items-center justify-evenly flex-grow rounded-t-2xl  -outline outline-emerald-500 place-items-center">
+                <button onClick={()=>setEnabled(true)} className="absolute top-0 left-0 text-white p-2">
+                    {/* <img src="/Info-Button.svg" alt="Help" width="25" height="25"/> */}
+                    <InformationCircleIcon className="h-10 aspect-square" />
                 </button>
                     <div id="joystick">
                         <HomeJoystick websocket={sendJsonMessage} color= {pixel} pixelArt={continuous}></HomeJoystick>

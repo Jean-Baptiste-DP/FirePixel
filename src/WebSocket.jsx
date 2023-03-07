@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom'
 import { getGrid } from './api';
 import { API_URL } from '../env';
 
-export default function WebSocket({Component,type}){
+export default function WebSocket({Component,type, height, width}){
     const wsUrl = "ws://"+API_URL
     const { sendJsonMessage } = useWebSocket(wsUrl,{onMessage:onReceivedSocket});
 
@@ -13,8 +13,10 @@ export default function WebSocket({Component,type}){
 
     //Grid
 
-    const gridHeight = 100
-    const gridWidth = 100
+    // let gridHeight = height;
+    // let gridWidth = width;
+    let gridHeight = 100;
+    let gridWidth = 100;
     const nbPlayerMax = 16 // 16 est le nombre de personnes pouvant jouer en simultané, doit être changé si besoin
 
 
@@ -92,8 +94,8 @@ export default function WebSocket({Component,type}){
       sendJsonMessage({
         req : "connection",
         type: type,
-        height : 100,
-        width : 100,
+        height : gridHeight,
+        width : gridWidth,
         token : token
       })
     },[]);

@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-#root{ @apply h-screen }
+/* #root{ @apply h-screen } */
 
 .font-title{
   font-family: 'Permanent Marker', serif;
@@ -10,4 +10,13 @@
 
 .color-palette::-webkit-scrollbar {
     display: none;
+}
+
+.screen-dvh {
+    height: 100vh;
+    height: 100dvh;
+}
+
+* {
+    -webkit-tap-highlight-color: transparent;
 }

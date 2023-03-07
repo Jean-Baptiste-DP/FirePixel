@@ -75,40 +75,33 @@ export default function Phone({ grid, cursor, sendJsonMessage, newPixel }) {
 
             {/* Affichage des blocs qui apparaissent quand on clique sur un bouton */}
 
-            <div className="block sm:hidden overflow-hidden">
+            <div className="sm:hidden">
 
-            <Steps
-              enabled={enabled}
-              steps={steps}
-              initialStep={initialStep}
-              onExit={onExit}
-            />
-            <div className="flex flex-col h-screen  bg-[#454141] justify-start">
-                <div className="w-full aspect-square bg-gray-200" id="canvas">
-                    <PhoneCanvas grid={grid} newPixel={newPixel} squareSide={windowSize.current[0]/5} cursor={cursor} websocket={sendJsonMessage} color={pixel} className="canvas"/>
-                </div>
-                <div className=" flex-col -outline -outline-red-500">
+                <Steps
+                enabled={enabled}
+                steps={steps}
+                initialStep={initialStep}
+                onExit={onExit}
+                />
+                <div className="flex flex-col screen-dvh bg-[#454141] justify-start">
+                    <div className="w-full aspect-square bg-gray-200" id="canvas">
+                        <PhoneCanvas grid={grid} newPixel={newPixel} squareSide={windowSize.current[0]/5} cursor={cursor} websocket={sendJsonMessage} color={pixel} className="canvas"/>
+                    </div>
                     <div className="flex my-2 bg-[#686060] rounded-2xl" id="palette">
-                        <div className="absolute pointer-events-none bg-gradient-to-l from-transparent to-gray-800 h-16 w-7 rounded-l-2xl "/>
                         <Scrollbar pixel={pixel} click={setPixel}></Scrollbar>
-                        <div className="absolute right-0 pointer-events-none bg-gradient-to-r from-transparent to-gray-800 h-16 w-7 rounded-r-2xl "/>
+                    </div>
+                    <div className="relative bg-[#686060] w-full flex flex-col items-center justify-evenly flex-grow rounded-t-2xl">
+                        <button onClick={()=>setEnabled(true)} className="absolute top-0 left-0 text-white p-2">
+                            <InformationCircleIcon className="h-10 aspect-square" />
+                        </button>
+                        <div id="joystick">
+                            <HomeJoystick websocket={sendJsonMessage} color= {pixel} pixelArt={continuous}></HomeJoystick>
+                        </div>
+                        <div className="p-2" id="switch">
+                            <Switch state={continuous} set={setContinuous}/>
+                        </div>
                     </div>
                 </div>
-                <div className="relative bg-[#686060] w-full flex flex-col items-center justify-evenly flex-grow rounded-t-2xl  -outline outline-emerald-500 place-items-center">
-                <button onClick={()=>setEnabled(true)} className="absolute top-0 left-0 text-white p-2">
-                    {/* <img src="/Info-Button.svg" alt="Help" width="25" height="25"/> */}
-                    <InformationCircleIcon className="h-10 aspect-square" />
-                </button>
-                    <div id="joystick">
-                        <HomeJoystick websocket={sendJsonMessage} color= {pixel} pixelArt={continuous}></HomeJoystick>
-                    </div>
-                    <div className="p-2" id="switch">
-                        <Switch state={continuous} set={setContinuous}/>
-                    </div>
-                    
-                </div>
-            </div>
-
             </div>
         </>
     );

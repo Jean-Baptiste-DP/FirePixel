@@ -46,7 +46,7 @@ export default function HomeJoystick({websocket,color,pixelArt}) {
     <BetterJoystick baseImage="joystick_smaller.png" 
               throttle={frontThrottle}
               size={200} 
-              stickSize={50} 
+              stickSize={75} 
               baseColor="white" 
               stickColor="black"
               move={handleMove}

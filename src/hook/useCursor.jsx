@@ -50,13 +50,13 @@ export default function useCursor(grid, draw, ref, cursors, draw_cursor){
     useEffect(()=>{
         const canvas = ref.current
         const context = canvas.getContext('2d')
-
-
+        
         for(let i=0; i<cursors.length; i++){
+            
             if(cursors[i].x!=old_cursors.current[i].x || cursors[i].y!=old_cursors.current[i].y){
                 clearCursor(context, old_cursors.current[i].x, old_cursors.current[i].y)
                 draw_cursor(context, cursors[i].y, height-1-cursors[i].x, cursors[i].id)
-                draw(context, cursors[i].y, height-1-cursors[i].x, grid[cursors[i].x][cursors[i].y])
+                draw(context, cursors[i].y, height-1-cursors[i].x < 100 ? height-1-cursors[i].x : 98 , grid[cursors[i].x][cursors[i].y])
             }
             else if(cursors[i].used && !old_cursors.current[i].used){
                 draw_cursor(context, cursors[i].y, height-1-cursors[i].x, cursors[i].id)

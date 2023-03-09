@@ -30,7 +30,7 @@ export default function Example({state,set}) {
                 checked={state}
                 onChange={set}
                 className={classNames(
-                    'bg-gray-200 relative inline-flex h-10 w-20 flex-shrink-0 cursor-pointer rounded-full border-4 border-transparent transition-colors duration-200 ease-in-out focus:outline-none'
+                    'bg-gray-200 relative inline-flex h-10 w-20 flex-shrink-0 cursor-pointer rounded-full border-4 border-transparent transition-colors duration-500 ease-in-out focus:outline-none'
                 )}
                 >
                 <span

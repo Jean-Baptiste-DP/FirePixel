@@ -4,6 +4,7 @@ import Switch from '../components/phone/switch';
 import React, { useState, useRef } from "react";
 import PhoneCanvas from '../components/phone/canvas';
 import Scrollbar from "../components/phone/scrollbar";
+import FullLobby from "../components/phone/fullLobby";
 import { Steps } from "intro.js-react";
 
 import "intro.js/introjs.css";
@@ -11,7 +12,7 @@ import { ColorsContext } from "../colorsContext";
 
 // const namedict = {0:'Emerald', 1 : 'Green', 3 : 'Yellow', 4 : 'Amber', 2 : 'Lime', 5 : 'Red', 6 : 'Rose', 7 : 'Cyan', 8 : 'Sky', 10 : 'Purple', 9 : 'Indigo', 11 : 'Brown', 12 : 'Black', 13 : 'Dark Grey', 14 : 'Light Grey', 15 : 'White'};
 const regles =
-    "Dessinez ce que vous voulez sur l'écran! Dans l'onglet color, choissisez une couleur avec laquelle dessiner,puis déplacez le joystick pour appliquer la couleur. Si vous avez décidé de faire du PixelArt, 'Apply' vous permet de placer les pixels un à un.";
+    "Dessinez ce que vous voulez sur l'écran! Dans l'onglet color, choisissez une couleur avec laquelle dessiner,puis déplacez le joystick pour appliquer la couleur. Si vous avez décidé de faire du PixelArt, 'Apply' vous permet de placer les pixels un à un.";
 
 export default function Phone({ grid, cursor, sendJsonMessage, newPixel }) {
 
@@ -27,7 +28,7 @@ export default function Phone({ grid, cursor, sendJsonMessage, newPixel }) {
     const steps =  [
         {
             element: "#canvas",
-            intro: `Tu as le curseur ${cursor.id != -1 ? colors[cursor.id].name : "noir"} ! Utilise la grille pour dessiner sur l'écran. Clique pour colorier. Clique long pour te déplacer`,
+            intro: `Tu as le curseur ${cursor.id != -1 ? colors[cursor.id].name : "noir"} ! Utilise la grille pour dessiner sur l'écran. Clique pour colorier. Clique long pour te déplacer.`,
             position: 'right',
           },
           {
@@ -37,20 +38,28 @@ export default function Phone({ grid, cursor, sendJsonMessage, newPixel }) {
           },
           {
             element: "#joystick",
-            intro: "Le joystick te permet de te déplacer",
+            intro: "Le joystick te permet de te déplacer.",
             position: 'top',
           },
-        {
+         { 
+            element: "#map",
+            intro: "Agrandis ton curseur sur l'écran pour te retrouver quand tu es perdu.",
+            position: 'bottom',
+
+            },
+            {
           element: "#switch",
-          intro: "Tu peux choisir : Te déplacer ou te déplacer en déssinant",
+          intro: "Tu peux choisir : Te déplacer ou te déplacer en dessinant.",
           position: 'top',
         },
       ]
  
     const windowSize = useRef([window.innerWidth, window.innerHeight]);
-    const [pixel, setPixel] = useState(0);
+    const [pixel, setPixel] = useState(Math.floor(Math.random()*10));
     const [continuous, setContinuous] = useState(false);
-
+    const FullLobbyModal =  <div className="sm:hidden absolute screen-dvh z-10 flex place-items-center">
+                                <FullLobby/>
+                            </div>
     return (
         <>
 
@@ -76,10 +85,9 @@ export default function Phone({ grid, cursor, sendJsonMessage, newPixel }) {
                 </div>
             </div>
 
-            {/* Affichage des blocs qui apparaissent quand on clique sur un bouton */}
+            {cursor?.id == -1  ? FullLobbyModal : null}
 
-            <div className="sm:hidden">
-
+            <div className={`sm:hidden ${cursor?.id == -1 ? 'opacity-60' : ''}`} >
                 <Steps
                     enabled={enabled}
                     steps={steps}
@@ -97,10 +105,10 @@ export default function Phone({ grid, cursor, sendJsonMessage, newPixel }) {
                         <button onClick={()=>setEnabled(true)} className="absolute top-0 left-0 text-white p-2">
                             <InformationCircleIcon className="h-10 aspect-square" />
                         </button>
-                        <button onClick={()=>{sendJsonMessage({req: "bigCursor"})}} className="absolute top-0 right-0 text-white p-2">
+                        <button id="map" onClick={()=>{sendJsonMessage({req: "bigCursor"})}} className="absolute top-0 right-0 text-white p-2">
                             <MapPinIcon className="h-10 aspect-square" />
                         </button>
-                        <div id="joystick">
+                        <div id="joystick" disabled>
                             <HomeJoystick websocket={sendJsonMessage} cursor={cursor} color={pixel} pixelArt={continuous}></HomeJoystick>
                         </div>
                         <div className="p-2" id="switch">

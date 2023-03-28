@@ -73,7 +73,7 @@ export default function WebSocket({Component,type, height, width}){
                         }
                     )
                     console.log("Update message sent", "Screen id : " + screenId)
-                },300000
+                },45000
             )
         }
     };

@@ -121,6 +121,10 @@ export default function WebSocket({Component,type, height, width}){
             let pseudo_cursor=[...cursor]
             pseudo_cursor[data.id] = {x:data.y, y:data.x, id:data.id, used:true, big: false}
             setCursor(pseudo_cursor)
+        }else if(data?.req == "disconnexion" && type=="screen"){
+            let pseudo_cursor=[...cursor]
+            pseudo_cursor[data.id] = {...pseudo_cursor[data.id], used:false}
+            setCursor(pseudo_cursor)
         }
         else if(data?.req == "bigCursor" && data.id!=undefined){
             if(type=="screen"){

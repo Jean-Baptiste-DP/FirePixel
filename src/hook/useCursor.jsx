@@ -93,15 +93,16 @@ export default function useCursor(grid, draw, ref, cursors, draw_cursor){
         
         for(let i=0; i<cursors.length; i++){
             
-            if(cursors[i].x!=old_cursors.current[i].x || cursors[i].y!=old_cursors.current[i].y || cursors[i].big!=old_cursors.current[i].big){
+            if(cursors[i].used && !old_cursors.current[i].used){
+                draw_cursor(context, cursors[i].y, height-1-cursors[i].x, cursors[i].id, cursors[i].big)
+            }
+            else if(!cursors[i].used && old_cursors.current[i].used){
+                clearCursor(context, old_cursors.current[i].x, old_cursors.current[i].y, old_cursors.current[i].big)
+            }
+            else if(cursors[i].x!=old_cursors.current[i].x || cursors[i].y!=old_cursors.current[i].y || cursors[i].big!=old_cursors.current[i].big){
                 clearCursor(context, old_cursors.current[i].x, old_cursors.current[i].y, old_cursors.current[i].big)
                 draw_cursor(context, cursors[i].y, height-1-cursors[i].x, cursors[i].id, cursors[i].big)
                 draw(context, cursors[i].y, height-1-cursors[i].x < height ? height-1-cursors[i].x : height , grid[cursors[i].x][cursors[i].y])
-            }
-            else if(cursors[i].used && !old_cursors.current[i].used){
-                draw_cursor(context, cursors[i].y, height-1-cursors[i].x, cursors[i].id, cursors[i].big)
-            }else if(!cursors[i].used && old_cursors.current[i].used){
-                clearCursor(context, old_cursors.current[i].x, old_cursors.current[i].y, old_cursors.current[i].big)
             }
         }
         old_cursors.current = cursors

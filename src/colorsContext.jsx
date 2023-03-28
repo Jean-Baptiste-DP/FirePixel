@@ -29,13 +29,13 @@ import React from "react";
 const colors = [
     {
         "id": 0,
-        "name": "Emerald",
+        "name": "Vert foncé",
         "tailwind": "bg-emerald-500",
         "hexa": "#10B981"
     },
     {
         "id": 1,
-        "name": "Green",
+        "name": "Vert clair",
         "tailwind": "bg-green-400",
         "hexa": "#4ADE80"
     },
@@ -47,19 +47,19 @@ const colors = [
     },
     {
         "id": 3,
-        "name": "Yellow",
+        "name": "Jaune",
         "tailwind": "bg-yellow-300",
         "hexa": "#FDE047"
     },
     {
         "id": 4,
-        "name": "Amber",
+        "name": "Orange",
         "tailwind": "bg-amber-500",
         "hexa": "#F59E0B"
     },
     {
         "id": 5,
-        "name": "Red",
+        "name": "Rouge",
         "tailwind": "bg-red-500",
         "hexa": "#EF4444"
     },
@@ -77,7 +77,7 @@ const colors = [
     },
     {
         "id": 8,
-        "name": "Sky",
+        "name": "Bleu ciel",
         "tailwind": "bg-sky-500",
         "hexa": "#0EA5E9"
     },
@@ -89,37 +89,37 @@ const colors = [
     },
     {
         "id": 10,
-        "name": "Purple",
+        "name": "Violet",
         "tailwind": "bg-purple-500",
         "hexa": "#A855F7"
     },
     {
         "id": 11,
-        "name": "Brown",
+        "name": "Marron",
         "tailwind": "bg-amber-800",
         "hexa": "#92400E"
     },
     {
         "id": 12,
-        "name": "Black",
+        "name": "Noir",
         "tailwind": "bg-black",
         "hexa": "#000000"
     },
     {
         "id": 13,
-        "name": "Dark Grey",
+        "name": "Gris foncé",
         "tailwind": "bg-slate-400",
         "hexa": "#94A3B8"
     },
     {
         "id": 14,
-        "name": "Light Grey",
+        "name": "Gris clair",
         "tailwind": "bg-slate-200",
         "hexa": "#E2E8F0"
     },
     {
         "id": 15,
-        "name": "White",
+        "name": "Blanc",
         "tailwind": "bg-white",
         "hexa": "#FFFFFF"
     }

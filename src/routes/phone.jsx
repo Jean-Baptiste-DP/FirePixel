@@ -20,6 +20,12 @@ export default function Phone({ grid, cursor, sendJsonMessage, newPixel }) {
 
     const [enabled,setEnabled] = useState(false);
     const [initialStep,setInitialStep] = useState(0);
+    const windowSize = useRef([window.innerWidth, window.innerHeight]);
+    const [pixel, setPixel] = useState(Math.floor(Math.random()*10));
+    const [continuous, setContinuous] = useState(false);
+    const FullLobbyModal =  <div className="sm:hidden absolute screen-dvh z-10 flex place-items-center">
+                                <FullLobby/>
+                            </div>
   
     const onExit = () => {
         setEnabled(false)
@@ -28,38 +34,32 @@ export default function Phone({ grid, cursor, sendJsonMessage, newPixel }) {
     const steps =  [
         {
             element: "#canvas",
-            intro: `Tu as le curseur ${cursor.id != -1 ? colors[cursor.id].name : "noir"} ! Utilise la grille pour dessiner sur l'écran. Clique pour colorier. Clique long pour te déplacer.`,
+            intro: `Repère toi sur l'écran en cherchant le curseur ${cursor.id != -1 ? colors[cursor.id].name : "noir"} ! Utilise la grille pour dessiner sur l'écran. Clique pour colorier. Clique long pour te déplacer.`,
             position: 'right',
           },
           {
             element: "#palette",
-            intro: "La palette te permet de choisir avec quelle couleur tu vas dessiner sur l'écran.",
+            intro: `La palette te permet de choisir avec quelle couleur tu vas dessiner sur l'écran. Tu as choisis le ${colors[pixel].name}. `,
             position: 'top',
           },
           {
             element: "#joystick",
-            intro: "Le joystick te permet de te déplacer.",
+            intro: `Le joystick te permet de te déplacer. Tu peux aussi y retrouver la couleur de ton curseur, le ${cursor.id != -1 ? colors[cursor.id].name : "noir"}.`,
             position: 'top',
           },
          { 
             element: "#map",
-            intro: "Agrandis ton curseur sur l'écran pour te retrouver quand tu es perdu.",
+            intro: "Retrouve ton curseur quand tu es perdu en cliquant sur ce bouton.",
             position: 'bottom',
 
             },
             {
           element: "#switch",
-          intro: "Tu peux choisir : Te déplacer ou te déplacer en dessinant.",
+          intro: "Tu peux choisir de te déplacer en dessinant ou non.",
           position: 'top',
         },
       ]
  
-    const windowSize = useRef([window.innerWidth, window.innerHeight]);
-    const [pixel, setPixel] = useState(Math.floor(Math.random()*10));
-    const [continuous, setContinuous] = useState(false);
-    const FullLobbyModal =  <div className="sm:hidden absolute screen-dvh z-10 flex place-items-center">
-                                <FullLobby/>
-                            </div>
     return (
         <>
 

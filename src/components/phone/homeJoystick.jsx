@@ -50,7 +50,7 @@ export default function HomeJoystick({websocket,color,pixelArt, cursor}) {
               size={200} 
               stickSize={75} 
               baseColor="white" 
-              stickColor={cursor.id == -1 ? 'black' : colors[cursor.id].hexa}
+              stickColor={cursor.id == -1 || cursor.id== 15 ? '#eae9f1' : colors[cursor.id].hexa}
               move={handleMove}
               >
 

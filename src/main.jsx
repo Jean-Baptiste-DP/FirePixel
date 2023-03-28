@@ -10,12 +10,14 @@ import './index.css'
 
 import WebSocket from './WebSocket'
 
+
 import Root from './routes/root'
 import Error from './routes/error'
 import Screen from './routes/screen'
 import Phone from './routes/phone'
 import Home from './routes/home'
 import Wrapper from './Wrapper'
+import { ColorsProvider } from './colorsContext'
 
 const router = createHashRouter([
   {
@@ -41,6 +43,8 @@ const router = createHashRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ColorsProvider>
+        <RouterProvider router={router} />
+    </ColorsProvider>
   </React.StrictMode>
 )

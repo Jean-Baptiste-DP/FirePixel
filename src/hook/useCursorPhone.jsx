@@ -2,7 +2,7 @@ import { useRef, useEffect } from "react";
 
 
 
-export default function useCursor(ref, draw, cursor, newPixel){
+export default function useCursor(ref, draw, cursor, newPixel, color){
 
 	function drawOverlay(){
 		const canvas = ref.current
@@ -14,7 +14,7 @@ export default function useCursor(ref, draw, cursor, newPixel){
 	useEffect(() => {
 		drawOverlay()
 		}
-	, [cursor,newPixel]);
+	, [cursor,newPixel, color]);
 
     return ref
 }

@@ -7,12 +7,15 @@ import Scrollbar from "../components/phone/scrollbar";
 import { Steps } from "intro.js-react";
 
 import "intro.js/introjs.css";
+import { ColorsContext } from "../colorsContext";
 
-const namedict = {0:'Emerald', 1 : 'Green', 3 : 'Yellow', 4 : 'Amber', 2 : 'Lime', 5 : 'Red', 6 : 'Rose', 7 : 'Cyan', 8 : 'Sky', 10 : 'Purple', 9 : 'Indigo', 11 : 'Brown', 12 : 'Black', 13 : 'Dark Grey', 14 : 'Light Grey', 15 : 'White'};
+// const namedict = {0:'Emerald', 1 : 'Green', 3 : 'Yellow', 4 : 'Amber', 2 : 'Lime', 5 : 'Red', 6 : 'Rose', 7 : 'Cyan', 8 : 'Sky', 10 : 'Purple', 9 : 'Indigo', 11 : 'Brown', 12 : 'Black', 13 : 'Dark Grey', 14 : 'Light Grey', 15 : 'White'};
 const regles =
     "Dessinez ce que vous voulez sur l'écran! Dans l'onglet color, choissisez une couleur avec laquelle dessiner,puis déplacez le joystick pour appliquer la couleur. Si vous avez décidé de faire du PixelArt, 'Apply' vous permet de placer les pixels un à un.";
 
 export default function Phone({ grid, cursor, sendJsonMessage, newPixel }) {
+
+    const colors = React.useContext(ColorsContext);
 
     const [enabled,setEnabled] = useState(false);
     const [initialStep,setInitialStep] = useState(0);
@@ -24,7 +27,7 @@ export default function Phone({ grid, cursor, sendJsonMessage, newPixel }) {
     const steps =  [
         {
             element: "#canvas",
-            intro: `Tu as le curseur ${cursor.id != -1 ? namedict[cursor.id] : "noir"} ! Utilise la grille pour dessiner sur l'écran. Clique pour colorier. Clique long pour te déplacer`,
+            intro: `Tu as le curseur ${cursor.id != -1 ? colors[cursor.id].name : "noir"} ! Utilise la grille pour dessiner sur l'écran. Clique pour colorier. Clique long pour te déplacer`,
             position: 'right',
           },
           {
@@ -78,10 +81,10 @@ export default function Phone({ grid, cursor, sendJsonMessage, newPixel }) {
             <div className="sm:hidden">
 
                 <Steps
-                enabled={enabled}
-                steps={steps}
-                initialStep={initialStep}
-                onExit={onExit}
+                    enabled={enabled}
+                    steps={steps}
+                    initialStep={initialStep}
+                    onExit={onExit}
                 />
                 <div className="flex flex-col screen-dvh bg-[#454141] justify-start">
                     <div className="w-full aspect-square bg-gray-200" id="canvas">
@@ -98,7 +101,7 @@ export default function Phone({ grid, cursor, sendJsonMessage, newPixel }) {
                             <MapPinIcon className="h-10 aspect-square" />
                         </button>
                         <div id="joystick">
-                            <HomeJoystick websocket={sendJsonMessage} color= {pixel} pixelArt={continuous}></HomeJoystick>
+                            <HomeJoystick websocket={sendJsonMessage} cursor={cursor} color={pixel} pixelArt={continuous}></HomeJoystick>
                         </div>
                         <div className="p-2" id="switch">
                             <Switch state={continuous} set={setContinuous}/>

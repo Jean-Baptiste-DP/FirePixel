@@ -1,7 +1,9 @@
-import { useRef } from "react";
+import { useRef, useContext } from "react";
+import { ColorsContext } from "../../colorsContext";
 import BetterJoystick from "./betterJoystick";
 
-export default function HomeJoystick({websocket,color,pixelArt}) {
+export default function HomeJoystick({websocket,color,pixelArt, cursor}) {
+    const colors = useContext(ColorsContext)
 
   const x = useRef(0.5);
   const y = useRef(0.5);
@@ -48,7 +50,7 @@ export default function HomeJoystick({websocket,color,pixelArt}) {
               size={200} 
               stickSize={75} 
               baseColor="white" 
-              stickColor="black"
+              stickColor={cursor.id == -1 ? 'black' : colors[cursor.id].hexa}
               move={handleMove}
               >
 

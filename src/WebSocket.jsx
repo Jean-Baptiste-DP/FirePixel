@@ -87,7 +87,7 @@ export default function WebSocket({Component,type, height, width}){
         const token = location.state ? location.state.token : "defautPassword";
 
       sendJsonMessage({
-        req : "connection",
+        req : "connection_"+type,
         type: type,
         height : gridHeight,
         width : gridWidth,
@@ -111,13 +111,18 @@ export default function WebSocket({Component,type, height, width}){
             pseudo_grid[data.y][data.x]=data.color
             changeGrid(pseudo_grid)
             chglastPixel({x:data.x, y:data.y, color:data.color})
-        }else if (data.req && data.req == "connection" && type=="screen") {
-            console.log("Get connection response")
+        }else if (data.req && data.req == "connection_screen" && type=="screen") {
             setScreenId(data.id)
             getGrid().then((response)=>changeGrid(response))
-        }else if(data?.req == "connection"){
+        }else if(data?.req == "connection_phone" && type=="phone"){
+            setCursor({id: data.id, x: data.x, y:data.y})
             getGrid().then((response)=>changeGrid(response))
-        }else if(data?.req == "bigCursor" && data.id!=undefined){
+        }else if(data?.req == "connection_phone" && type=="screen"){
+            let pseudo_cursor=[...cursor]
+            pseudo_cursor[data.id] = {x:data.y, y:data.x, id:data.id, used:true, big: false}
+            setCursor(pseudo_cursor)
+        }
+        else if(data?.req == "bigCursor" && data.id!=undefined){
             if(type=="screen"){
                 let pseudo_cursor=[...cursor]
                 pseudo_cursor[data.id] = {...pseudo_cursor[data.id], big: !pseudo_cursor[data.id].big}

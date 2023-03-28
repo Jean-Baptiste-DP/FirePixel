@@ -98,7 +98,7 @@ export default function Phone({ grid, cursor, sendJsonMessage, newPixel }) {
                             <InformationCircleIcon className="h-10 aspect-square" />
                         </button>
                         <div id="joystick">
-                            <HomeJoystick websocket={sendJsonMessage} color= {pixel} pixelArt={continuous}></HomeJoystick>
+                            <HomeJoystick websocket={sendJsonMessage} cursor={cursor} color={pixel} pixelArt={continuous}></HomeJoystick>
                         </div>
                         <div className="p-2" id="switch">
                             <Switch state={continuous} set={setContinuous}/>

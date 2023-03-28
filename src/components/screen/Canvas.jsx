@@ -21,10 +21,11 @@ export default function Canvas({ grid, newPixel, squareSide, cursors}) {
       ctx.restore()
     }
 
-    function draw_cursor(ctx, x, y, color){
+    function draw_cursor(ctx, x, y, color, big=false){
       const rgb = hexToRgb(colorList[color])
+      const radius = big ? 2.8 : 1.4;
       ctx.beginPath();
-      ctx.arc((x+0.5)*squareSide, (y+0.5)*squareSide, 1.4*squareSide, 0, 2 * Math.PI);
+      ctx.arc((x+0.5)*squareSide, (y+0.5)*squareSide, radius*squareSide, 0, 2 * Math.PI);
       ctx.fillStyle = "rgba("+rgb.r+","+rgb.g+","+rgb.b+",0.3)";
       ctx.fill();
       ctx.lineWidth = 3;
@@ -32,8 +33,8 @@ export default function Canvas({ grid, newPixel, squareSide, cursors}) {
       ctx.stroke();
       ctx.strokeRect(x*squareSide,y*squareSide,squareSide,squareSide)
       ctx.restore()
-      console.log("Mv cursor")
     }
+
 
     const height = grid.length*squareSide;
     const width = grid[0].length*squareSide;

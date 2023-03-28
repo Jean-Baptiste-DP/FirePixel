@@ -1,4 +1,4 @@
-import { ExclamationTriangleIcon, InformationCircleIcon } from "@heroicons/react/20/solid";
+import { ExclamationTriangleIcon, InformationCircleIcon, MapPinIcon } from "@heroicons/react/20/solid";
 import HomeJoystick from "../components/phone/homeJoystick";
 import Switch from '../components/phone/switch';
 import React, { useState, useRef } from "react";
@@ -93,6 +93,9 @@ export default function Phone({ grid, cursor, sendJsonMessage, newPixel }) {
                     <div className="relative bg-[#686060] w-full flex flex-col items-center justify-evenly flex-grow rounded-t-2xl">
                         <button onClick={()=>setEnabled(true)} className="absolute top-0 left-0 text-white p-2">
                             <InformationCircleIcon className="h-10 aspect-square" />
+                        </button>
+                        <button onClick={()=>{sendJsonMessage({req: "bigCursor"})}} className="absolute top-0 right-0 text-white p-2">
+                            <MapPinIcon className="h-10 aspect-square" />
                         </button>
                         <div id="joystick">
                             <HomeJoystick websocket={sendJsonMessage} color= {pixel} pixelArt={continuous}></HomeJoystick>

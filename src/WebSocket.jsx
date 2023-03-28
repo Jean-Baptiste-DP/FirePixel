@@ -42,7 +42,7 @@ export default function WebSocket({Component,type, height, width}){
     if(type=="screen"){
         pseudo_cursor = new Array(nbPlayerMax)
         for(let i=0;i<nbPlayerMax;i++){
-            pseudo_cursor[i] = {x:0,y:0,id:-1,used:false}
+            pseudo_cursor[i] = {x:0,y:0,id:-1,used:false, big: false}
         }
     }else{
         pseudo_cursor={x:0,y:0,id:-1}
@@ -101,7 +101,7 @@ export default function WebSocket({Component,type, height, width}){
         if(data.req && data.req=="move" && data.x!=undefined && data.y!= undefined && data.id!=undefined){
             if(type=="screen"){
                 let pseudo_cursor=[...cursor]
-                pseudo_cursor[data.id] = {x:data.y, y:data.x, id:data.id, used:true}
+                pseudo_cursor[data.id] = {x:data.y, y:data.x, id:data.id, used:true, big: false}
                 setCursor(pseudo_cursor)
             }else{
                 setCursor({x:data.x, y:data.y,id:data.id})
@@ -117,6 +117,12 @@ export default function WebSocket({Component,type, height, width}){
             getGrid().then((response)=>changeGrid(response))
         }else if(data?.req == "connection"){
             getGrid().then((response)=>changeGrid(response))
+        }else if(data?.req == "bigCursor" && data.id!=undefined){
+            if(type=="screen"){
+                let pseudo_cursor=[...cursor]
+                pseudo_cursor[data.id] = {...pseudo_cursor[data.id], big: !pseudo_cursor[data.id].big}
+                setCursor(pseudo_cursor)
+            }
         }else{
             console.log(data)
         }

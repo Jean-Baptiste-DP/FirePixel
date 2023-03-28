@@ -53,11 +53,10 @@ export default function PhoneCanvas({ grid, newPixel, squareSide, cursor,websock
 
       //draw cursor
       ctx.lineWidth = 20;
-
       if(cursor.id == -1){
           ctx.strokeStyle = colors[12].hexa;
       } else {
-        ctx.strokeStyle = colors[cursor.id].hexa
+        ctx.strokeStyle = colors[color].hexa
       }
 
       ctx.strokeRect(2*squareSide,2*squareSide,squareSide,squareSide)
@@ -104,7 +103,7 @@ export default function PhoneCanvas({ grid, newPixel, squareSide, cursor,websock
       
   }
 
-    useCursor(canvasRef, draw_cursor, cursor, newPixel)
+    useCursor(canvasRef, draw_cursor, cursor, newPixel, color)
     
     return <canvas ref={canvasRef} height={height} width={width} onClick={canvasOnClick} {...onLongPress(()=>setLong(true))}/>
 }

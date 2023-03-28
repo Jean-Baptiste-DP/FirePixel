@@ -3,14 +3,17 @@ import usePixels from '../../hook/usePixelsPhone';
 import useCursor from '../../hook/useCursorPhone';
 import useLongPress from "../../hook/useLongPress";
 import {useState} from 'react'
+import { ColorsContext } from '../../colorsContext';
 
-const colorList = ['#10B981', '#4ADE80', '#D9F99D', '#FDE047', '#F59E0B', '#EF4444', '#FB7185', '#67E8F9', '#0EA5E9', '#A8B4FC', '#A855F7', '#92400E', '#000000', '#94A3B8', '#E2E8F0', '#FFFFFF'];
+// const colorList = ['#10B981', '#4ADE80', '#D9F99D', '#FDE047', '#F59E0B', '#EF4444', '#FB7185', '#67E8F9', '#0EA5E9', '#A8B4FC', '#A855F7', '#92400E', '#000000', '#94A3B8', '#E2E8F0', '#FFFFFF'];
 
 
 
 
 
 export default function PhoneCanvas({ grid, newPixel, squareSide, cursor,websocket, color}) {
+
+  const colors = React.useContext(ColorsContext);
 
   const [long,setLong] = useState(false);
 
@@ -20,9 +23,9 @@ export default function PhoneCanvas({ grid, newPixel, squareSide, cursor,websock
   
     function draw_pixel(ctx, x, y, color,int){
       int='' //remove to show number grid
-      ctx.fillStyle = colorList[color];
+      ctx.fillStyle = colors[color].hexa;
       ctx.fillRect(x*squareSide,y*squareSide,squareSide,squareSide)
-      ctx.fillStyle = colorList[12]
+      ctx.fillStyle = colors[12].hexa
       ctx.font = "30px sans-serif"
       ctx.textAlign=  "center" 
       ctx.fillText(int,(x+0.5)*squareSide,(y+0.5)*squareSide)
@@ -33,7 +36,7 @@ export default function PhoneCanvas({ grid, newPixel, squareSide, cursor,websock
 
       //draw grid lines
       ctx.lineWidth = 5;
-      ctx.strokeStyle = colorList[12];
+      ctx.strokeStyle = colors[12].hexa;
 
       ctx.beginPath();
 
@@ -50,10 +53,16 @@ export default function PhoneCanvas({ grid, newPixel, squareSide, cursor,websock
 
       //draw cursor
       ctx.lineWidth = 20;
-      ctx.strokeStyle = colorList[cursor.id];
+
+      if(cursor.id == -1){
+          ctx.strokeStyle = colors[12].hexa;
+      } else {
+        ctx.strokeStyle = colors[cursor.id].hexa
+      }
+
       ctx.strokeRect(2*squareSide,2*squareSide,squareSide,squareSide)
       ctx.lineWidth = 2;
-      ctx.strokeStyle = colorList[12];
+      ctx.strokeStyle = colors[12].hexa;
       ctx.strokeRect(2*squareSide-10,2*squareSide-10,squareSide+20,squareSide+20)
       ctx.strokeRect(2*squareSide+10,2*squareSide+10,squareSide-20,squareSide-20)
 

@@ -1,25 +1,7 @@
 import React from "react";
+import { ColorsContext } from "../../colorsContext";
 import useCursor from "../../hook/useCursor";
 import usePixels from "../../hook/usePixels";
-
-const colorList = [
-	"#10B981",
-	"#4ADE80",
-	"#D9F99D",
-	"#FDE047",
-	"#F59E0B",
-	"#EF4444",
-	"#FB7185",
-	"#67E8F9",
-	"#0EA5E9",
-	"#A8B4FC",
-	"#A855F7",
-	"#92400E",
-	"#000000",
-	"#94A3B8",
-	"#E2E8F0",
-	"#FFFFFF",
-];
 
 function hexToRgb(hex) {
 	var result = /^#?([A-F\d]{2})([A-F\d]{2})([A-F\d]{2})$/i.exec(hex);
@@ -33,14 +15,16 @@ function hexToRgb(hex) {
 }
 
 export default function Canvas({ grid, newPixel, squareSide, cursors }) {
+	const colors = React.useContext(ColorsContext);
+
 	function draw_pixel(ctx, x, y, color) {
-		ctx.fillStyle = colorList[color];
+		ctx.fillStyle = colors[color].hexa;
 		ctx.fillRect(x * squareSide, y * squareSide, squareSide, squareSide);
 		ctx.restore();
 	}
 
 	function draw_cursor(ctx, x, y, color, big = false) {
-		const rgb = hexToRgb(colorList[color]);
+		const rgb = hexToRgb(colors[color].hexa);
 		const radius = big ? 2.8 : 1.4;
 		ctx.beginPath();
 		ctx.arc(
@@ -53,7 +37,7 @@ export default function Canvas({ grid, newPixel, squareSide, cursors }) {
 		ctx.fillStyle = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + ",0.3)";
 		ctx.fill();
 		ctx.lineWidth = 3;
-		ctx.strokeStyle = colorList[color];
+		ctx.strokeStyle = colors[color].hexa;
 		ctx.stroke();
 		ctx.strokeRect(x * squareSide, y * squareSide, squareSide, squareSide);
 		ctx.restore();

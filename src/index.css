@@ -4,19 +4,19 @@
 
 /* #root{ @apply h-screen } */
 
-.font-title{
-  font-family: 'Permanent Marker', serif;
+.font-title {
+	font-family: "Permanent Marker", serif;
 }
 
 .color-palette::-webkit-scrollbar {
-    display: none;
+	display: none;
 }
 
 .screen-dvh {
-    height: 100vh;
-    height: 100dvh;
+	height: 100vh;
+	height: 100dvh;
 }
 
 * {
-    -webkit-tap-highlight-color: transparent;
+	-webkit-tap-highlight-color: transparent;
 }

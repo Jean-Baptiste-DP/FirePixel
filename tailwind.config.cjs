@@ -10,11 +10,8 @@ module.exports = {
         'primary': '#FE4946',
         'dark': '#2D3142',
         'secondary': '#BFC0C0'
-      },
-      gridTemplateColumns : {
-        '100': 'repeat(100, minmax(0, 1fr))'
-      },
-    },
+      }
+    }
   },
   plugins: [],
 }

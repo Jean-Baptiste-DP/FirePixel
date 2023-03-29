@@ -20,13 +20,18 @@
 import React from "react";
 import { ColorsContext } from "../../colorsContext";
 
-
-const highlight = 'border-4 border-slate-100 shadow-lg shadow-gray-800'
+const highlight = "border-4 border-slate-100 shadow-lg shadow-gray-800";
 
 export default function Godet({ onClick, color, selected }) {
-    
-    const colors = React.useContext(ColorsContext);
-    return (
-        <button className={`${colors[color].tailwind} w-10 aspect-square rounded-lg transition duration-100  ${selected ? highlight : ''}`} onClick={onClick} />
-    );
+	const colors = React.useContext(ColorsContext);
+	return (
+		<button
+			className={`${
+				colors[color].tailwind
+			} w-10 aspect-square rounded-lg transition duration-100  ${
+				selected ? highlight : ""
+			}`}
+			onClick={onClick}
+		/>
+	);
 }

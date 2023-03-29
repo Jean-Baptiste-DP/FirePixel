@@ -27,108 +27,110 @@ import React from "react";
 // };
 
 const colors = [
-    {
-        "id": 0,
-        "name": "Vert foncé",
-        "tailwind": "bg-emerald-500",
-        "hexa": "#10B981"
-    },
-    {
-        "id": 1,
-        "name": "Vert clair",
-        "tailwind": "bg-green-400",
-        "hexa": "#4ADE80"
-    },
-    {
-        "id": 2,
-        "name": "Lime",
-        "tailwind": "bg-lime-200",
-        "hexa": "#D9F99D"
-    },
-    {
-        "id": 3,
-        "name": "Jaune",
-        "tailwind": "bg-yellow-300",
-        "hexa": "#FDE047"
-    },
-    {
-        "id": 4,
-        "name": "Orange",
-        "tailwind": "bg-amber-500",
-        "hexa": "#F59E0B"
-    },
-    {
-        "id": 5,
-        "name": "Rouge",
-        "tailwind": "bg-red-500",
-        "hexa": "#EF4444"
-    },
-    {
-        "id": 6,
-        "name": "Rose",
-        "tailwind": "bg-rose-400",
-        "hexa": "#FB7185"
-    },
-    {
-        "id": 7,
-        "name": "Cyan",
-        "tailwind": "bg-cyan-300",
-        "hexa": "#67E8F9"
-    },
-    {
-        "id": 8,
-        "name": "Bleu ciel",
-        "tailwind": "bg-sky-500",
-        "hexa": "#0EA5E9"
-    },
-    {
-        "id": 9,
-        "name": "Indigo",
-        "tailwind": "bg-indigo-300",
-        "hexa": "#A8B4FC"
-    },
-    {
-        "id": 10,
-        "name": "Violet",
-        "tailwind": "bg-purple-500",
-        "hexa": "#A855F7"
-    },
-    {
-        "id": 11,
-        "name": "Marron",
-        "tailwind": "bg-amber-800",
-        "hexa": "#92400E"
-    },
-    {
-        "id": 12,
-        "name": "Noir",
-        "tailwind": "bg-black",
-        "hexa": "#000000"
-    },
-    {
-        "id": 13,
-        "name": "Gris foncé",
-        "tailwind": "bg-slate-400",
-        "hexa": "#94A3B8"
-    },
-    {
-        "id": 14,
-        "name": "Gris clair",
-        "tailwind": "bg-slate-200",
-        "hexa": "#E2E8F0"
-    },
-    {
-        "id": 15,
-        "name": "Blanc",
-        "tailwind": "bg-white",
-        "hexa": "#FFFFFF"
-    }
-]
+	{
+		id: 0,
+		name: "Vert foncé",
+		tailwind: "bg-emerald-500",
+		hexa: "#10B981",
+	},
+	{
+		id: 1,
+		name: "Vert clair",
+		tailwind: "bg-green-400",
+		hexa: "#4ADE80",
+	},
+	{
+		id: 2,
+		name: "Lime",
+		tailwind: "bg-lime-200",
+		hexa: "#D9F99D",
+	},
+	{
+		id: 3,
+		name: "Jaune",
+		tailwind: "bg-yellow-300",
+		hexa: "#FDE047",
+	},
+	{
+		id: 4,
+		name: "Orange",
+		tailwind: "bg-amber-500",
+		hexa: "#F59E0B",
+	},
+	{
+		id: 5,
+		name: "Rouge",
+		tailwind: "bg-red-500",
+		hexa: "#EF4444",
+	},
+	{
+		id: 6,
+		name: "Rose",
+		tailwind: "bg-rose-400",
+		hexa: "#FB7185",
+	},
+	{
+		id: 7,
+		name: "Cyan",
+		tailwind: "bg-cyan-300",
+		hexa: "#67E8F9",
+	},
+	{
+		id: 8,
+		name: "Bleu ciel",
+		tailwind: "bg-sky-500",
+		hexa: "#0EA5E9",
+	},
+	{
+		id: 9,
+		name: "Indigo",
+		tailwind: "bg-indigo-300",
+		hexa: "#A8B4FC",
+	},
+	{
+		id: 10,
+		name: "Violet",
+		tailwind: "bg-purple-500",
+		hexa: "#A855F7",
+	},
+	{
+		id: 11,
+		name: "Marron",
+		tailwind: "bg-amber-800",
+		hexa: "#92400E",
+	},
+	{
+		id: 12,
+		name: "Noir",
+		tailwind: "bg-black",
+		hexa: "#000000",
+	},
+	{
+		id: 13,
+		name: "Gris foncé",
+		tailwind: "bg-slate-400",
+		hexa: "#94A3B8",
+	},
+	{
+		id: 14,
+		name: "Gris clair",
+		tailwind: "bg-slate-200",
+		hexa: "#E2E8F0",
+	},
+	{
+		id: 15,
+		name: "Blanc",
+		tailwind: "bg-white",
+		hexa: "#FFFFFF",
+	},
+];
 
-export const ColorsContext = React.createContext(colors)
+export const ColorsContext = React.createContext(colors);
 
-export const ColorsProvider = ({children}) => {
-    return (
-        <ColorsContext.Provider value={colors}>{children}</ColorsContext.Provider>
-    )
-}
+export const ColorsProvider = ({ children }) => {
+	return (
+		<ColorsContext.Provider value={colors}>
+			{children}
+		</ColorsContext.Provider>
+	);
+};
